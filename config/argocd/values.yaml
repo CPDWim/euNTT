@@ -1,5 +1,5 @@
 ---
-repoURL: https://github.com/CPDWim/euCPD
+repoURL: https://github.com/CPDWim/euNTT
 targetRevision: main
 metadata:
   argocd_namespace: openshift-gitops
