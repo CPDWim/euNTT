@@ -23,7 +23,7 @@
     | Field | Value |
     | ----- | ----- |
     | Application Name | cp-shared-app |
-    | Path | config/argocd-cloudpaks/cp-shared |
+    | Path | config/cloudpaks/cp-shared |
     | Namespace | ibm-cloudpaks |
     | Project | default |
     | Sync policy | Automatic |
@@ -40,8 +40,7 @@
 
     | Cloud Pak | Application Name | Path | Namespace |
     | --------- | ---------------- | ---- | --------- |
-   
-    | Data | cp4d-app | config/argocd-cloudpaks/cp4d | cp4d |
+    | Data | cp4denv01 | config/cloudpaks/cp4denv01 | cp4d |
 
 
     For all other fields, use the following values:
@@ -57,8 +56,6 @@
 
 4. After filling out the form details, click the "Create" button
 
-5. Under "Parameters," set the values for the fields `storageclass.rwo` and `storageclass.rwx` with the appropriate storage classes. For OpenShift Container Storage, the values will be `ocs-storagecluster-ceph-rbd` and `ocs-storagecluster-cephfs`, respectively.
+5. After filling out the form details, click the "Create" button
 
-6. After filling out the form details, click the "Create" button
-
-7. Wait for the synchronization to complete.
+6. Wait for the synchronization to complete.
