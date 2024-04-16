@@ -1,8 +1,35 @@
 # Installation and configuration instructions
 ## Mirroring images
-Get olm-utils:  
-> cpd-cli manage save-image \
-> --from=icr.io/cpopen/cpd/olm-utils-v2:latest
+### Terminology
+> - bastion01 : indicates the bastion server that has access to the internet, access to the online repositories
+> - bastion02 : indicates the bastion server, airgapped with access to the private repositories
+
+### Pre-requisites
+
+podman or docker installed
+
+cpd-cli needs to be downloaded and installed, see [Installing the IBM Cloud Pak for Data command-line interface](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=workstation-installing-cloud-pak-data-cli).
+
+Download from github:
+
+From the following link (https://github.com/IBM/cpd-cli/releases) select the correct version and open asset , download platform and release.
+For 4.8.2 enterprise edition: (https://github.com/IBM/cpd-cli/releases/download/v13.1.3/cpd-cli-linux-EE-13.1.3.tgz)
+
+Example for linux bastion01:
+
+>curl -L https://github.com/IBM/cpd-cli/releases/download/v13.1.3/cpd-cli-linux-EE-13.1.3.tgz > /tmp/cpd-cli-linux-EE-13.1.3.tgz
+>
+>tar -xvf /tmp/cpd-cli-linux-EE-13.1.3.tgz
+>
+>export PATH=/home/admin/cpd-cli-linux-EE-13.1.3-98:$PATH
+>
+>cpd-cli manage restart-container
+>
+>cpd-cli manage save-image --from=icr.io/cpopen/cpd/olm-utils-v2:latest
+
+By doing the above the olm-utils-v2 latest client will be in the offline folder
+
+
 ## Argo specific context
 1. Add Argo app
 Once logged to the Argo CD console, click on the "New App+" button in the upper left of the Argo CD console and fill out the form with values matching the Cloud Pak of your choice, according to the table below:
