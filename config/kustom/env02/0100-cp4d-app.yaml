@@ -6,7 +6,7 @@ metadata:
   name: cp4denv02
 spec:
   destination:
-    namespace: cp4d-02
+    namespace: openshift-gitops
     server: 'https://kubernetes.default.svc'
   ignoreDifferences:
     - group: argoproj.io

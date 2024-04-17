@@ -6,6 +6,7 @@ metadata:
   namespace: {{.Values.metadata.argocd_namespace}}
 spec:
   destination:
+    namespace: openshift-gitops
     server: 'https://kubernetes.default.svc'
   ignoreDifferences:
     - group: argoproj.io
