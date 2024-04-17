@@ -6,5 +6,5 @@ resources:
 - config/cloudpaks/cp4denvs/templates/0100-cp4d-app.yaml
 
 patchesStrategicMerge:
-  - config/kustom/env02/patch-cp4d-app.yaml
+  - ../../../config/kustom/env02/patch-cp4d-app.yaml
 ...
