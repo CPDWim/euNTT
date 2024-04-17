@@ -4,10 +4,9 @@ kind: Application
 metadata:
   creationTimestamp: null
   name: cp4denv02
-  namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-gitops
+    namespace: cp4d-02
     server: 'https://kubernetes.default.svc'
   ignoreDifferences:
     - group: argoproj.io
