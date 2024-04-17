@@ -1,9 +1,0 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cloudpak-base
-spec:
-  source:
-    repoURL: https://github.com/CPDWim/euNTT 
-    targetRevision: HEAD
-    path: config/cloudpaks/cp-shared
