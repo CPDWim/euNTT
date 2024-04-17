@@ -24,7 +24,7 @@ spec:
         - name: components
           value: "none"
         - name:   
-    path: /cloudpaks/cp4denvs
+    path: ../../cloudpaks/cp4denvs
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
   syncPolicy:
