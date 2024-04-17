@@ -22,9 +22,9 @@ spec:
     helm:
       parameters:
         - name: components
-          value: "cpd_platform, wkc"
+          value: "none"
         - name:   
-    path: config/cloudpaks/cp4denvs
+    path: config/cloudpaks/cp4denvs/templates
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
   syncPolicy:
