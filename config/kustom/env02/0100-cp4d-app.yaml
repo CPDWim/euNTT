@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: cp4denv01
+  name: cp4denv02
   namespace: openshift-gitops
 spec:
   destination:
@@ -21,13 +21,15 @@ spec:
   source:
     helm:
       values:
+        - name: app-name
+          value: cp4denv02
         - name: components
           value: cpd_platform,wkc
         - name: operators_namespace
           value: cp4denv02-oper
         - name: operands_namespace
           value: cp4denv02-inst
-    path: config/cloudpaks/cp4denv01
+    path: config/cloudpaks/cp4denv02
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
   syncPolicy:
