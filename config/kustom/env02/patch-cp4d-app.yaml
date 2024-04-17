@@ -4,7 +4,7 @@ kind: Application
 metadata:
   creationTimestamp: null
   name: cp4denv02
-  namespace: openshift-gitops
+  namespace: cp4d-02
 spec:
   destination:
     namespace: openshift-gitops

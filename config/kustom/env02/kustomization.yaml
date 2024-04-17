@@ -3,5 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- 0100-cp4d-app.yaml
+- ../../cloudpaks/cp4denvs/0100-cp4d-app.yaml
+
+patchesStrategicMerge:
+  - patch-cp4d-app.yaml
 ...

@@ -23,6 +23,12 @@ spec:
       parameters:
         - name: components
           value: cpd_platform,wkc
+        - name: metadata.argocd_app_namespace
+          value: cp4d-02
+        - name: metadata.operators_namespace
+          value: cp4denv02-oper
+        - name: metadata.operands_namespace
+          value: cp4denv02-inst
     path: config/cloudpaks/cp4denv01
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
