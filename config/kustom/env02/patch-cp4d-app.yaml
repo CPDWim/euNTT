@@ -19,6 +19,11 @@ spec:
       kind: Application
   project: default
   source:
+    helm:
+      parameters:
+        - name: components
+          value: "cpd_platform, wkc"
+        - name:   
     path: config/cloudpaks/cp4denvs
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
