@@ -1,0 +1,66 @@
+---
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: EventStreams
+metadata:
+  name: evs-tst
+spec:
+  security:
+    # Default: TLSv1.2
+    internalTls: NONE
+  license:
+    accept: true
+    license: L-YBXJ-ADJNSM
+    use: CloudPakForIntegrationNonProduction
+  requestIbmServices:
+    iam: false
+    monitoring: false
+  strimziOverrides:
+    entityOperator:
+      topicOperator: {}
+      userOperator: {}
+    kafka:
+      config:
+        inter.broker.protocol.version: '3.5'
+        offsets.topic.replication.factor: 1
+        transaction.state.log.min.isr: 1
+        transaction.state.log.replication.factor: 1
+      listeners:
+        - authentication:
+            type: scram-sha-512
+          name: external
+          port: 9094
+          tls: true
+          type: route
+        - name: plain
+          port: 9092
+          tls: false
+          type: internal
+      metricsConfig:
+        type: jmxPrometheusExporter
+        valueFrom:
+          configMapKeyRef:
+            key: kafka-metrics-config.yaml
+            name: metrics-config
+      replicas: 3
+      storage:
+        type: ephemeral
+    zookeeper:
+      metricsConfig:
+        type: jmxPrometheusExporter
+        valueFrom:
+          configMapKeyRef:
+            key: zookeeper-metrics-config.yaml
+            name: metrics-config
+      replicas: 3
+      storage:
+        type: ephemeral
+  adminUI:
+    authentication:
+        # Default: iam
+      - type: scram-sha-512
+  restProducer: {}
+  apicurioRegistry: {}
+  adminApi: {}
+  collector: {}
+  version: latest
+...
