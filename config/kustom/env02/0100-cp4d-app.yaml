@@ -1,0 +1,38 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  name: cp4denv01
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-gitops
+    server: 'https://kubernetes.default.svc'
+  ignoreDifferences:
+    - group: argoproj.io
+      jsonPointers:
+        - /spec/project
+        - /spec/source/repoURL
+        - /spec/source/targetRevision
+        - /status
+      kind: Application
+  project: default
+  source:
+    helm:
+      values:
+        - name: components
+          value: cpd_platform,wkc
+        - name: operators_namespace
+          value: cp4denv02-oper
+        - name: operands_namespace
+          value: cp4denv02-inst
+    path: config/cloudpaks/cp4denv01
+    repoURL:  "https://github.com/CPDWim/euNTT/"
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
