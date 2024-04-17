@@ -20,7 +20,7 @@ spec:
   project: default
   source:
     helm:
-      values:
+      parameters:
         - name: app-name
           value: cp4denv02
         - name: components
@@ -29,7 +29,7 @@ spec:
           value: cp4denv02-oper
         - name: operands_namespace
           value: cp4denv02-inst
-    path: config/cloudpaks/cp4denv02
+    path: config/cloudpaks/cp4denvs
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
   syncPolicy:
