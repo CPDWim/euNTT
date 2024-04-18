@@ -19,7 +19,7 @@ spec:
       kind: Application
   project: default
   source:
-    path: ../cp4denvs
+    path: kustom/cp4denvs
     repoURL:  "https://github.com/CPDWim/euNTT/"
     targetRevision: main
   syncPolicy:
