@@ -47,7 +47,7 @@ spec:
           value: ${ARGOCD_APP_SOURCE_TARGET_REVISION}
         - name: version
           value: {{.Values.version}}
-    path: cloudpaks/cp4denvs
+    path: ../cp4denvs
     repoURL: {{.Values.repoURL}}
     targetRevision: {{.Values.targetRevision}}
   syncPolicy:
