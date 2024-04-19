@@ -7,7 +7,6 @@ resources:
 helmCharts:
   - name: cp4denv01
     repo: https://github.com/CPDWim/euNTT/
-    targetRevision: pureKust
     releaseName: "4.8.2"
     version: 0.0.1
 
