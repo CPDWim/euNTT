@@ -47,7 +47,7 @@ spec:
           value: ${ARGOCD_APP_SOURCE_TARGET_REVISION}
         - name: version
           value: {{.Values.version}}
-    path: kustom/cp4denvs
+    path: kustom/base
     repoURL: {{.Values.repoURL}}
     targetRevision: {{.Values.targetRevision}}
   syncPolicy:
