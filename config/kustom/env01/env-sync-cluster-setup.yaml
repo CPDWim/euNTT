@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: configure-cluster
-          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.3"
           env:
             - name: PROJECT_CERT_MANAGER
               value: ibm-cert-manager
@@ -17,6 +17,6 @@ spec:
             - name: PROJECT_SCHEDULING_SERVICE
               value: ibm-cpd-scheduler
             - name: VERSION
-              value: "4.8.2"
+              value: "4.8.3"
             - name: COMPONENTS
               value: "cpd_platform"

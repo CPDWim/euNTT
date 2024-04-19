@@ -18,7 +18,7 @@ spec:
             - name: STG_CLASS_BLOCK
               value: ocs-storagecluster-ceph-rbd
             - name: VERSION
-              value: 4.8.2
+              value: 4.8.3
             - name: COMPONENTS
               value: "cpd_platform"
             - name: CPD_CLI_MANAGE_WORKSPACE

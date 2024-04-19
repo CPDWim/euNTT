@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - 0000-cpd-namespaces.yaml
 patches:
   - path: env-config-placeholder.yaml
   #- path: env-postsync-certificates.yaml
