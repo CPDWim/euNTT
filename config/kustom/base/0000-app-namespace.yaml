@@ -4,9 +4,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   creationTimestamp: null
-  name: {{.Values.metadata.operators_namespace}}
-  annotations:
-    argocd.argoproj.io/sync-wave: "10"
-spec: {}
-status: {}
+  name: cp4denv01-oper
+
+
 
