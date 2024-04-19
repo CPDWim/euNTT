@@ -4,7 +4,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: sync-cp4d-install-olm
-  namespace: cp4d-01
+  namespace: openshift-gitops
 spec:
   template:
     spec:
