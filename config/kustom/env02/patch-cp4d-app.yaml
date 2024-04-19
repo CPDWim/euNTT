@@ -22,7 +22,7 @@ spec:
     helm:
       parameters:
         - name: components
-          value: "none"
+          value: "cpd_platform,wkc"
         - name:   
     path: ../cp4denvs
     repoURL:  "https://github.com/CPDWim/euNTT/"
