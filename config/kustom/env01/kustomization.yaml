@@ -4,3 +4,9 @@ kind: Kustomization
 
 resources:
 - ../base
+patchesStrategicMerge:
+- env-postsync-certificates.yaml
+- env-sync-cluster-setup.yaml
+- env-sync-install-olm.yaml
+- env-sync-install-platform.yaml
+- env-sync-install-zen-workaround.yaml
