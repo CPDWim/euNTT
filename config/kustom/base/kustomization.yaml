@@ -6,7 +6,6 @@ resources:
 - 0000-cpd-namespaces.yaml
 - 0000-argocd-role-binding-admin.yaml
 - 0090-sync-cluster-setup.yaml
-- 0100-config-placeholder.yaml
 - 0100-sync-install-olm.yaml
 - 0100-sync-install-platform.yaml
 - 0100-sync-install-zen-workaround.yaml
