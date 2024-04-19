@@ -10,4 +10,4 @@ resources:
 - 0100-sync-install-olm.yaml
 - 0100-sync-install-platform.yaml
 - 0100-sync-install-zen-workaround.yaml
-- 0401-postsync-certificates.yaml
+#- 0401-postsync-certificates.yaml
