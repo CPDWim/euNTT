@@ -1,6 +1,6 @@
 ---
 apiVersion: v2
-name: icp4d
+name: cp4denv01
 description: Cloud Pak for Data
 
 # A chart can be either an 'application' or a 'library' chart.
