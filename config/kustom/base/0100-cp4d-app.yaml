@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: standard
+  name: cp4denv01
   namespace: {{.Values.metadata.argocd_namespace}}
 spec:
   destination:
