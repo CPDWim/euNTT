@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ../base
 patches:
-  #- path: env-config-placeholder.yaml
+  - path: env-config-placeholder.yaml
   - path: env-postsync-certificates.yaml
   - path: env-sync-cluster-setup.yaml
   - path: env-sync-install-olm.yaml
