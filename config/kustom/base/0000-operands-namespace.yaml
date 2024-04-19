@@ -2,7 +2,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  creationTimestamp: null
-  name: {{.Values.metadata.operands_namespace}}
-spec: {}
-status: {}
+  name: cp4denv01-oper

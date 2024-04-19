@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: install-olm
-          image: "icr.io/cpopen/cpd/olm-utils-v2:{{.Values.version}}{{.Values.image_arch}}"
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
           env:
             - name: PROJECT_CPD_INST_OPERATORS
               value: cp4denv01-oper

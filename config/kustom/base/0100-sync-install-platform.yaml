@@ -14,18 +14,20 @@ spec:
     spec:
       containers:
         - name: install-components
-          image: "icr.io/cpopen/cpd/olm-utils-v2:{{.Values.version}}{{.Values.image_arch}}"
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
           env:
+            - name: PROJECT_CPD_INST_OPERATORS
+              value: cp4denv01-oper
             - name: PROJECT_CPD_INST_OPERANDS
-              value: {{.Values.metadata.operands_namespace}}
+              value: cp4denv01-isnt
             - name: STG_CLASS_BLOCK
-              value: {{.Values.storageclass.rwo}}
-            - name: STG_CLASS_FILE
-              value: {{.Values.storageclass.rwx}}
+              value: ocs-storagecluster-ceph-rbd
             - name: VERSION
-              value: {{.Values.version}}
+              value: 4.8.2
             - name: COMPONENTS
-              value: {{.Values.components}}
+              value: "cpd_platfrom"
+            - name: CPD_CLI_MANAGE_WORKSPACE
+              value: /tmp
           command:
             - /bin/bash
             - -c
@@ -69,6 +71,6 @@ spec:
               exit ${result}
 
       restartPolicy: Never
-      serviceAccountName: {{.Values.serviceaccount.argocd_application_controller}}
+      serviceAccountName: openshift-gitops-argocd-application-controller
 
   backoffLimit: 2
