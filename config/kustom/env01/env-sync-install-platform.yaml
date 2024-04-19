@@ -16,6 +16,8 @@ spec:
               value: cp4denv01-isnt
             - name: STG_CLASS_BLOCK
               value: ocs-storagecluster-ceph-rbd
+            - name: STG_CLASS_FILE
+              value: ocs-storagecluster-cephfs              
             - name: VERSION
               value: 4.8.2
             - name: COMPONENTS
