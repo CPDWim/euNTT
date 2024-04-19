@@ -5,7 +5,7 @@
 # certain combinations of configuration values may
 # exclude all other resources in the folder.
 ---
-apiVersion: v1
+apiVersion: batch/v1
 kind: ConfigMap
 metadata:
   name: gitops-cp4d-dummy
