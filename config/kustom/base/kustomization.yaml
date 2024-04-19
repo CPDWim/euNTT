@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- 0000-cpd-namespace.yaml
+- 0000-cpd-namespaces.yaml
 - 0000-argocd-role-binding-admin.yaml
 - 0090-sync-cluster-setup.yaml
 - 0100-config-placeholder.yaml
