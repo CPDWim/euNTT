@@ -4,3 +4,35 @@ kind: Kustomization
 
 resources:
 - ../base
+helmCharts:
+  - name: cp4denv01
+
+    releaseName: "4.8.2"
+    version: 0.0.1
+
+    valuesInline:
+      repoURL: https://github.com/CPDWim/euNTT/
+      targetRevision: main
+      serviceaccount:
+        argocd_application_controller: openshift-gitops-argocd-application-controller
+      metadata:
+        argocd_app_namespace: cp4d-01
+        argocd_namespace: openshift-gitops
+      operators_namespace: cp4denv01-oper
+      operands_namespace: cp4denv01-inst
+
+      # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-determining-which-components-install
+      components: cpd_platform
+
+      storageclass:
+        rwo: ocs-storagecluster-ceph-rbd
+        rwx: ocs-storagecluster-cephfs
+
+      iam_integration: true
+
+      # suffix for labels for the olm-v2 utils image
+      image_arch: ""
+              # image_arch: .s390x
+          # image_arch: .ppc64le
+
+      version: 4.8.2
