@@ -1,9 +1,0 @@
-namePrefix: staging-
-commonLabels:
- variant: staging
-commonAnnotations:
-  note: “Welcome to staging!”
-bases:
-- ../../base
-patchesStrategicMerge:
-- config-map.yaml
