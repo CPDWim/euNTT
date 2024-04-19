@@ -3,6 +3,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "100"
   name: sync-cp4d-install-olm
   namespace: openshift-gitops
 spec:
@@ -10,20 +14,6 @@ spec:
     spec:
       containers:
         - name: install-olm
-          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
-          env:
-            - name: PROJECT_CPD_INST_OPERATORS
-              value: cp4denv01-oper
-            - name: PROJECT_CPD_INST_OPERANDS
-              value: cp4denv01-isnt
-            - name: STG_CLASS_BLOCK
-              value: ocs-storagecluster-ceph-rbd
-            - name: VERSION
-              value: 4.8.2
-            - name: COMPONENTS
-              value: "cpd_platfrom"
-            - name: CPD_CLI_MANAGE_WORKSPACE
-              value: /tmp
           command:
             - /bin/bash
             - -c
