@@ -9,9 +9,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: gitops-cp4d-dummy
-  namespace: {{.Values.metadata.operands_namespace}}
+  namespace: cp4dinst01
 data:
-  components: cpd_platform,wkc
-  stg_class_block: {{.Values.storageclass.rwo}}
-  stg_class_file: {{.Values.storageclass.rwx}}
-  version: {{.Values.version}}
+  components: cpd_platform
+  stg_class_block: ocs-storagecluster-ceph-rbd
+  stg_class_file: ocs-storagecluster-cephfs
+  version: 4.8.2

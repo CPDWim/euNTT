@@ -2,9 +2,6 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "10"
-
   name: cp4d-cluster-roles
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -12,5 +9,5 @@ roleRef:
   name: cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: "{{.Values.serviceaccount.argocd_application_controller}}"
-    namespace: "{{.Values.metadata.argocd_namespace}}"
+    name: openshift-gitops-argocd-application-controller
+    namespace: penshift-gitops
