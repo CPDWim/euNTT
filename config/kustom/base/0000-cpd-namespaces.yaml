@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-options: Delete=false
   name: cp4denv01-oper
 ---
 apiVersion: v1
@@ -12,5 +12,5 @@ kind: Namespace
 metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-options: Delete=false
   name: cp4denv01-inst
