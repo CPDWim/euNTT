@@ -7,6 +7,7 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   name: cp4denv01-oper
 ---
+apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
