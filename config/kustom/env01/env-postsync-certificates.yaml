@@ -20,6 +20,6 @@ spec:
             - name: VERSION
               value: 4.8.2
             - name: COMPONENTS
-              value: "cpd_platfrom"
+              value: "cpd_platform"
             - name: CPD_CLI_MANAGE_WORKSPACE
               value: /tmp
