@@ -13,11 +13,21 @@ spec:
     spec:
       containers:
         - name: config
-          image: "icr.io/cpopen/cpd/olm-utils-v2:{{.Values.version}}{{.Values.image_arch}}"
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
           imagePullPolicy: IfNotPresent
           env:
+            - name: PROJECT_CPD_INST_OPERATORS
+              value: cp4denv01-oper
             - name: PROJECT_CPD_INST_OPERANDS
-              value: {{.Values.metadata.operands_namespace}}
+              value: cp4denv01-isnt
+            - name: STG_CLASS_BLOCK
+              value: ocs-storagecluster-ceph-rbd
+            - name: VERSION
+              value: 4.8.2
+            - name: COMPONENTS
+              value: "cpd_platfrom"
+            - name: CPD_CLI_MANAGE_WORKSPACE
+              value: /tmp
           command:
             - /bin/sh
             - -c
@@ -100,5 +110,5 @@ spec:
               exit ${result}
 
       restartPolicy: Never
-      serviceAccountName: {{.Values.serviceaccount.argocd_application_controller}}
+      serviceAccountName: openshift-gitops-argocd-application-controller
   backoffLimit: 1

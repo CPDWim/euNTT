@@ -5,26 +5,13 @@ kind: Job
 metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "90"
   name: pre-sync-cp4d-cluster-setup
-  namespace: {{.Values.metadata.argocd_namespace}}
+  namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
         - name: configure-cluster
-          image: "icr.io/cpopen/cpd/olm-utils-v2:{{.Values.version}}{{.Values.image_arch}}"
-          env:
-            - name: PROJECT_CERT_MANAGER
-              value: ibm-cert-manager
-            - name: PROJECT_LICENSE_SERVICE
-              value: ibm-licensing
-            - name: PROJECT_SCHEDULING_SERVICE
-              value: ibm-cpd-scheduler
-            - name: VERSION
-              value: {{.Values.version}}
-            - name: COMPONENTS
-              value: {{.Values.components}}
           command:
             - /bin/bash
             - -c
@@ -90,7 +77,7 @@ spec:
 
               exit ${result}
       restartPolicy: Never
-      serviceAccountName: {{.Values.serviceaccount.argocd_application_controller}}
+      serviceAccountName: openshift-gitops-argocd-application-controller
   backoffLimit: 1
   syncPolicy:
     syncOptions:

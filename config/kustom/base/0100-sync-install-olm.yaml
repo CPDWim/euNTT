@@ -8,26 +8,12 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/sync-wave: "100"
   name: sync-cp4d-install-olm
-  namespace: {{.Values.metadata.argocd_namespace}}
+  namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
         - name: install-olm
-          image: "icr.io/cpopen/cpd/olm-utils-v2:{{.Values.version}}{{.Values.image_arch}}"
-          env:
-            - name: PROJECT_CPD_INST_OPERATORS
-              value: {{.Values.metadata.operators_namespace}}
-            - name: PROJECT_CPD_INST_OPERANDS
-              value: {{.Values.metadata.operands_namespace}}
-            - name: STG_CLASS_BLOCK
-              value: {{.Values.storageclass.rwo}}
-            - name: VERSION
-              value: {{.Values.version}}
-            - name: COMPONENTS
-              value: {{.Values.components}}
-            - name: CPD_CLI_MANAGE_WORKSPACE
-              value: /tmp
           command:
             - /bin/bash
             - -c
@@ -98,6 +84,6 @@ spec:
               exit ${result}
 
       restartPolicy: Never
-      serviceAccountName: {{.Values.serviceaccount.argocd_application_controller}}
+      serviceAccountName: openshift-gitops-argocd-application-controller
 
   backoffLimit: 2
