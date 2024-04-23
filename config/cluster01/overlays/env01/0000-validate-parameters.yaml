@@ -1,0 +1,53 @@
+---
+# https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-setting-up-installation-environment-variables
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+  name: validate-parameters
+  namespace: openshift-gitops
+spec:
+  template:
+    spec:
+      containers:
+        - name: val-par-cpdenv01
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.2"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PROJECT_CPD_INST_OPERATORS
+              value: cp4denv01-oper
+            - name: PROJECT_CPD_INST_OPERANDS
+              value: cp4denv01-inst
+            - name: STG_CLASS_BLOCK
+              value: ocs-storagecluster-ceph-rbd
+            - name: VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: 0000-config-placeholder.yaml
+                  key: version
+            - name: COMPONENTS
+              valueFrom:
+                configMapKeyRef:
+                  name: 0000-config-placeholder.yaml
+                  key: components
+            - name: CPD_CLI_MANAGE_WORKSPACE
+              value: /tmp
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -eo pipefail
+              set -x
+              echo "Paremeters used are ${VERION} and ${COMPONENTS}"
+              echo "With namespaces : ${PROJECT_CPD_INST_OPERATORS} and ${PROJECT_CPD_INST_OPERANDS}"
+              result=0
+              EOF
+              exit ${result}
+            
+      restartPolicy: Never
+      serviceAccountName: openshift-gitops-argocd-application-controller
+  backoffLimit: 1
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
