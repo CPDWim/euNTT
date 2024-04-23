@@ -47,6 +47,3 @@ spec:
       restartPolicy: Never
       serviceAccountName: openshift-gitops-argocd-application-controller
   backoffLimit: 1
-  syncPolicy:
-    syncOptions:
-    - ApplyOutOfSyncOnly=true
