@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: cp4denv01
   namespace: openshift-gitops
-  annotations:
-    argocd.argoproj.io/hook: PreSync
 data:
   operator_namespace: cp4denv01-oper
   operand_namespace: cp4denv01-inst
