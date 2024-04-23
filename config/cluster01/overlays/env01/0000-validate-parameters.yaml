@@ -24,12 +24,12 @@ spec:
             - name: VERSION
               valueFrom:
                 configMapKeyRef:
-                  name: 0000-config-placeholder.yaml
+                  name: cp4denv01
                   key: version
             - name: COMPONENTS
               valueFrom:
                 configMapKeyRef:
-                  name: 0000-config-placeholder.yaml
+                  name: cp4denv01
                   key: components
             - name: CPD_CLI_MANAGE_WORKSPACE
               value: /tmp
