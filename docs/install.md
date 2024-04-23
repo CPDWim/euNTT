@@ -6,8 +6,15 @@
 
 ### Pre-requisites
 
+parameters: 
+- VERSION : 4.8.2
+- COMPOMENTS : cpd_platfrom,wkc
+
+*list of components will vary based on environment to be installed*
+
 podman or docker installed
 
+### Bastion 01
 cpd-cli needs to be downloaded and installed, see [Installing the IBM Cloud Pak for Data command-line interface](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=workstation-installing-cloud-pak-data-cli).
 
 Download from github:
@@ -17,18 +24,50 @@ For 4.8.2 enterprise edition: (https://github.com/IBM/cpd-cli/releases/download/
 
 Example for linux bastion01:
 
->curl -L https://github.com/IBM/cpd-cli/releases/download/v13.1.3/cpd-cli-linux-EE-13.1.3.tgz > /tmp/cpd-cli-linux-EE-13.1.3.tgz
+>`curl -L https://github.com/IBM/cpd-cli/releases/download/v13.1.3/cpd-cli-linux-EE-13.1.3.tgz > /tmp/cpd-cli-linux-EE-13.1.3.tgz`
 >
->tar -xvf /tmp/cpd-cli-linux-EE-13.1.3.tgz
+>`tar -xvf /tmp/cpd-cli-linux-EE-13.1.3.tgz`
 >
->export PATH=/home/admin/cpd-cli-linux-EE-13.1.3-98:$PATH
+>`export PATH=/home/admin/cpd-cli-linux-EE-13.1.3-98:$PATH`
 >
->cpd-cli manage restart-container
+>`cpd-cli manage restart-container`
 >
->cpd-cli manage save-image --from=icr.io/cpopen/cpd/olm-utils-v2:latest
+>`cpd-cli manage save-image --from=icr.io/cpopen/cpd/olm-utils-v2:latest`
 
 By doing the above the olm-utils-v2 latest client will be in the offline folder
 
+#### Download case file
+
+>`cpd-cli manage case-download --components=${COMPONENTS} --release=${VERSION}`
+
+#### Mirror images to intermediate container
+
+Login to the entitled registry
+>`cpd-cli manage login-entitled-registry ${IBM_ENTITLEMENT_KEY}`
+Make sure component parameter is set
+
+List images (will also download the case packages)
+>`cpd-cli manage list-images --components=${COMPONENTS} --release=${VERSION} --inspect_source_registry=true`
+
+Mirror images to intermediate container
+>`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --target_registry=127.0.0.1:12443 --arch=${IMAGE_ARCH} --case_download=false`
+
+Copy the entire cpd-cli workspace.
+
+### Bastion 02
+
+Put cpd-cli and copied workspace on Bastion 02
+
+Login to private container regisry
+>`cpd-cli manage login-private-registry ${PRIVATE_REGISTRY_LOCATION} ${PRIVATE_REGISTRY_PUSH_USER} ${PRIVATE_REGISTRY_PUSH_PASSWORD}`
+
+Mirror the images to private registry
+
+>`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --source_registry=127.0.0.1:12443 --target_registry {PRIVATE_REGISTRY_LOCATION} --arch=${IMAGE_ARCH} --case_download=false`
+
+
+
+# Documentation To renew to Kustomize
 
 ## Argo specific context
 1. Add Argo app
