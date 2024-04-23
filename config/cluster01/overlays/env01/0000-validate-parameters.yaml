@@ -39,10 +39,9 @@ spec:
             - |
               set -eo pipefail
               set -x
-              echo "Paremeters used are ${VERION} and ${COMPONENTS}"
+              echo "Paremeters used are ${VERSION} and ${COMPONENTS}"
               echo "With namespaces : ${PROJECT_CPD_INST_OPERATORS} and ${PROJECT_CPD_INST_OPERANDS}"
               result=0
-              EOF
               exit ${result}
             
       restartPolicy: Never
