@@ -6,7 +6,7 @@ metadata:
 data:
   operator_namespace: cp4denv01-oper
   operand_namespace: cp4denv01-inst
-  components: cpd_platform,wkc
+  components: cpd_platform,wkc,datastage
   stg_class_block: ocs-storagecluster-ceph-rbd
   stg_class_file: ocs-storagecluster-cephfs
   version: 4.8.4
