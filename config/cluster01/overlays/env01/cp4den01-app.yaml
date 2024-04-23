@@ -8,7 +8,7 @@ spec:
     namespace: cp4d-app01
     server: 'https://kubernetes.default.svc'
   source:
-    path: config/kustom/env01
+    path: config/cluster01/overlays/env01
     repoURL: 'https://github.com/CPDWim/euNTT'
     targetRevision: pureKust
   sources: []
