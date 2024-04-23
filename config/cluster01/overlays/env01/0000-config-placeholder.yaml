@@ -11,4 +11,4 @@ data:
   components: cpd_platform,wkc
   stg_class_block: ocs-storagecluster-ceph-rbd
   stg_class_file: ocs-storagecluster-cephfs
-  version: 4.8.2
+  version: 4.8.3
