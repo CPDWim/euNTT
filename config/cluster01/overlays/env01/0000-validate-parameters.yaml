@@ -5,6 +5,8 @@ kind: Job
 metadata:
   name: validate-parameters
   namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 spec:
   template:
     spec:
