@@ -7,7 +7,7 @@ resources:
   - 0000-validate-parameters.yaml
   #- ../../base
   #- 0000-cpd-namespaces.yaml
-patches:
+
   # - path: env-config-placeholder.yaml
   #- path: env-postsync-certificates.yaml
   #- path: env-sync-cluster-setup.yaml
