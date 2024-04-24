@@ -6,7 +6,7 @@ metadata:
   name: validate-parameters
   namespace: openshift-gitops
   annotations:
-    argocd.argoproj.io/sync-options: Replace=true
+    argocd.argoproj.io/sync-options: PruneLast=true
 spec:
   template:
     spec:
