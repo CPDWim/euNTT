@@ -9,6 +9,7 @@ metadata:
     argocd.argoproj.io/sync-options: PruneLast=true
     argocd.argoproj.io/sync-wave: "5"
 spec:
+  ttlSecondsAfterFinished: 30
   template:
     spec:
       containers:
