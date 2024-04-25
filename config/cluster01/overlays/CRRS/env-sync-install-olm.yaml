@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: install-olm
-          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.3"
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
           envFrom:
           - configMapRef:
               name: crrs
