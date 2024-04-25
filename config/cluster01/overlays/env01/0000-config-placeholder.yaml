@@ -7,12 +7,12 @@ metadata:
     rgocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-1"
 data:
-  operator_namespace: cp4denv01-oper
-  operand_namespace: cp4denv01-inst
-  project_cert_manager: ibm-cert-manager
-  project_license_service: ibm-licensing
-  project_schedeling_service: ibm-cpd-scheduler
-  components: cpd_platform,wkc,datastage
-  stg_class_block: ocs-storagecluster-ceph-rbd
-  stg_class_file: ocs-storagecluster-cephfs
-  version: 4.8.2
+  OPERATOR_NAMESPACE: cp4denv01-oper
+  OPERAND_NAMESPACE: cp4denv01-inst
+  PROJECT_CERT_MANAGER: ibm-cert-manager
+  PROJECT_LICENSE_SERVICE: ibm-licensing
+  PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
+  COMPONENTS: cpd_platform,wkc,datastage
+  STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
+  STG_CLASS_FILE:: ocs-storagecluster-cephfs
+  VERSION: 4.8.2
