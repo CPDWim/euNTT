@@ -4,7 +4,7 @@ metadata:
   name: cp4denv01
   namespace: openshift-gitops
   annotations:
-    argocd.argoproj.io/sync-wave: "0"  
+    rgocd.argoproj.io/hook: PreSync
 data:
   operator_namespace: cp4denv01-oper
   operand_namespace: cp4denv01-inst
