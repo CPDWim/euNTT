@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - 0000-config-placeholder.yaml
-  ##- 0000-validate-parameters.yaml
+  - 0000-validate-parameters.yaml
   #- ../../base
   #- 0000-cpd-namespaces.yaml
 
