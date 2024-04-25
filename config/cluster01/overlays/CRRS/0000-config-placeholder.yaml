@@ -7,6 +7,8 @@ metadata:
     rgocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "-1"
 data:
+  OLM_VERSION: 4.8.5
+  CR_VERSION: 0.0.0
   PROJECT_CPD_INST_OPERANDS: crrs-inst
   PROJECT_CPD_INST_OPERATORS: crrs-oper
   PROJECT_CERT_MANAGER: ibm-cert-manager
