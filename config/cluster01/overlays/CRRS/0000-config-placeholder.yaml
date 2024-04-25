@@ -4,7 +4,7 @@ metadata:
   name: CRRS
   namespace: openshift-gitops
   annotations:
-    rgocd.argoproj.io/hook: PreSync
+    rgocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "-1"
 data:
   OPERATOR_NAMESPACE: cp4denv01-oper
