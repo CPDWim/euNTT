@@ -8,6 +8,9 @@ metadata:
 data:
   operator_namespace: cp4denv01-oper
   operand_namespace: cp4denv01-inst
+  project_cert_manager: ibm-cert-manager
+  project_license_service: ibm-licensing
+  project_schedeling_service: ibm-cpd-scheduler
   components: cpd_platform,wkc,datastage
   stg_class_block: ocs-storagecluster-ceph-rbd
   stg_class_file: ocs-storagecluster-cephfs
