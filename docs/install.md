@@ -7,7 +7,7 @@
 ### Pre-requisites
 
 parameters: 
-- VERSION : 4.8.2
+- VERSION : 4.8.3
 - COMPOMENTS : cpd_platfrom,wkc
 
 *list of components will vary based on environment to be installed*
