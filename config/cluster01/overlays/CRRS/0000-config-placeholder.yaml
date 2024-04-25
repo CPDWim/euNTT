@@ -7,12 +7,15 @@ metadata:
     rgocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "-1"
 data:
-  OPERATOR_NAMESPACE: cp4denv01-oper
-  OPERAND_NAMESPACE: cp4denv01-inst
+  OPERATOR_NAMESPACE: crrs-oper
+  OPERAND_NAMESPACE: crrs-inst
+  PROJECT_CPD_INST_OPERANDS: cp4denv01-inst
+  PROJECT_CPD_INST_OPERATORS: cp4denv01-oper
   PROJECT_CERT_MANAGER: ibm-cert-manager
   PROJECT_LICENSE_SERVICE: ibm-licensing
   PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
   COMPONENTS: cpd_platform,edb_cp4d,ws_pipelines,wkc,datastage_ent,mantaflow,dashboard,cognos_analytics,dv
   STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
-  STG_CLASS_FILE:: ocs-storagecluster-cephfs
+  STG_CLASS_FILE: ocs-storagecluster-cephfs
   VERSION: 4.8.5
+
