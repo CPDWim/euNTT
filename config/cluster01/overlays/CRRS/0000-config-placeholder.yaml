@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: CRRS
+  name: crrs
   namespace: openshift-gitops
   annotations:
     rgocd.argoproj.io/hook: Sync

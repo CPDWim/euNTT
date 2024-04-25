@@ -11,4 +11,4 @@ spec:
           image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
           envFrom:
           - configMapRef:
-              name: CRRS
+              name: crrs
