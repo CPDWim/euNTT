@@ -5,6 +5,7 @@ metadata:
   namespace: openshift-gitops
   annotations:
     rgocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-1"
 data:
   operator_namespace: cp4denv01-oper
   operand_namespace: cp4denv01-inst
