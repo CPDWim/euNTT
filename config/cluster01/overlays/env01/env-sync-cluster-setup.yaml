@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: pre-sync-cp4d-cluster-setup
-  namespace: opemshift-gitops
+  namespace: openshift-gitops
 spec:
   template:
     spec:
