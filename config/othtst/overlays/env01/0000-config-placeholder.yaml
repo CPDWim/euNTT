@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cp4denv01
+  namespace: openshift-gitops
+  annotations:
+    rgocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-1"
+data:
+  OPERATOR_NAMESPACE: cp4denv01-oper
+  PROJECT_CPD_INST_OPERANDS: cp4denv01-inst
+  PROJECT_CPD_INST_OPERATORS: cp4denv01-oper
+  OPERAND_NAMESPACE: cp4denv01-inst
+  PROJECT_CERT_MANAGER: ibm-cert-manager
+  PROJECT_LICENSE_SERVICE: ibm-licensing
+  PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
+  COMPONENTS: cpd_platform,wkc,datastage
+  STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
+  STG_CLASS_FILE:: ocs-storagecluster-cephfs
+  VERSION: 4.8.2

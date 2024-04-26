@@ -4,7 +4,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "0090"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   name: pre-sync-cp4d-cluster-setup
   namespace: openshift-gitops
 spec:
