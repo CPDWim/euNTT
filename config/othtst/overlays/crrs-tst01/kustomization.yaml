@@ -13,4 +13,5 @@ patches:
   - path: env-sync-install-olm.yaml
   - path: env-sync-install-platform.yaml
   - path: env-sync-install-components.yaml
+  - path: env-sync-install-manta.yaml
   #- path: env-sync-install-zen-workaround.yaml
