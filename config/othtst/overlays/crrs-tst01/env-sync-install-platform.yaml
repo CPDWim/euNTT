@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sync-cp4d-install-platform
+  namespace: openshift-gitops
+spec:
+  template:
+    spec:
+      containers:
+        - name: install-platform
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
+          envFrom:
+          - configMapRef:
+              name: crrs

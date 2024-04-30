@@ -7,13 +7,13 @@ metadata:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
     argocd.argoproj.io/sync-wave: "101"
-  name: sync-cp4d-install-components
+  name: sync-cp4d-install-platform
   namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
-        - name: install-components
+        - name: install-platform
           command:
             - /bin/bash
             - -c
@@ -40,7 +40,7 @@ spec:
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=${COMPONENTS:?} \
+                  --components=cpd_platform\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
@@ -48,7 +48,7 @@ spec:
                   --license_acceptance=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D installation complete." \
+              && echo "INFO: CP4D platform installation complete." \
               || {
                   echo "ERROR: CP4D installation failed."
                   result=1
