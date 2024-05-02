@@ -56,7 +56,7 @@ spec:
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=cpd_mantaflow\
+                  --components=mantaflow\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
