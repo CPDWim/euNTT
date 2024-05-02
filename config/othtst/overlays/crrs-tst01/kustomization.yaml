@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - 0000-config-placeholder.yaml
   - 0200-sync-install-wkc.yaml
+  - 0280-install-manta.yaml
   - ../../base
   
   #- 0000-cpd-namespaces.yaml
