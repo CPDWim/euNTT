@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - 0000-config-placeholder.yaml
   - ../../base
+  - ../../base/0200-sync-install-wkc.yaml
   #- 0000-cpd-namespaces.yaml
 patches:
   # - path: env-config-placeholder.yaml
