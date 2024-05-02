@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cp4d-install-platform
+  name: cp4d-install-wkc
   namespace: openshift-gitops
 spec:
   template:
