@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - name: install-platform
+        - name: install-wkc
           image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
           envFrom:
           - configMapRef:
