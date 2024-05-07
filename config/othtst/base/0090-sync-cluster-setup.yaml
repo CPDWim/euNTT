@@ -21,14 +21,14 @@ spec:
               set -x
 
               export KUBECONFIG=/tmp/kubeconfig
-              #api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
-              #oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
-              #|| {
-              #    echo "WARNING: Unable to login to the cluster."
-              #    exit 1
-              #}
+              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
+              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
+              || {
+                  echo "WARNING: Unable to login to the cluster."
+                  exit 1
+              }
 
-              #result=0
+              result=0
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
               bin/apply-cluster-components \
