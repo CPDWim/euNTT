@@ -7,9 +7,10 @@
 ### Pre-requisites
 
 parameters: 
-- VERSION : 4.8.3
-- COMPOMENTS : cpd_platfrom,wkc
+- VERSION : 4.8.5
+- COMPOMENTS : cpd_platform,wkc
 
+The above parameters serve as example
 *list of components will vary based on environment to be installed*
 
 podman or docker installed

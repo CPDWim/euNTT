@@ -6,14 +6,14 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-    argocd.argoproj.io/sync-wave: "101"
-  name: cp4d-install-platform
+    argocd.argoproj.io/sync-wave: "2"
+  name: cp4d-install-manta
   namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
-        - name: install-platform
+        - name: install-manta
           command:
             - /bin/bash
             - -c
@@ -32,7 +32,7 @@ spec:
               }
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
-              echo "INFO: Installing foundational services" \
+              echo "INFO: Installing manta" \
               && bin/authorize-instance-topology \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
@@ -45,28 +45,18 @@ spec:
               && bin/get-license \
                   --release=${VERSION} \
                   --license-type=SE \
-              && echo "INFO: Creating OLM objects cpd_platform." \
+              && echo "INFO: Creating OLM objects for a specialized installation." \
               && bin/apply-olm apply-olm \
                   --release=${VERSION} \
-                  --components=cpd_platform \
+                  --components=mantaflow \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
               || result=1
 
-              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-specifying-privileges-that-db2u-runs
-              oc apply -f - <<EOF
-              apiVersion: v1
-              data:
-                DB2U_RUN_WITH_LIMITED_PRIVS: "false"
-              kind: ConfigMap
-              metadata:
-                name: db2u-product-cm
-                namespace: ${PROJECT_CPD_INST_OPERATORS}
-              EOF
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=cpd_platform\
+                  --components=mantaflow\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
@@ -76,7 +66,7 @@ spec:
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
               && echo "INFO: CP4D platform installation complete." \
               || {
-                  echo "ERROR: CP4D platform installation failed."
+                  echo "ERROR: CP4D manta failed."
                   result=1
               }
 

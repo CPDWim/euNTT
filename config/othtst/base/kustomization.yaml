@@ -5,8 +5,9 @@ kind: Kustomization
 resources:
 - 0000-argocd-role-binding-admin.yaml
 - 0090-sync-cluster-setup.yaml
-- 0100-sync-install-olm.yaml
+#- 0100-sync-install-olm.yaml
 - 0101-sync-install-platform.yaml
-- 0102-sync-install-components.yaml
+#- 0102-sync-install-components.yaml
+#- 0103-sync-install-manta.yaml
 #- 0100-sync-install-zen-workaround.yaml
 #- 0401-postsync-certificates.yaml

@@ -4,13 +4,17 @@ kind: Kustomization
 
 resources:
   - 0000-config-placeholder.yaml
+  - 0200-sync-install-wkc.yaml
+  - 0280-install-manta.yaml
   - ../../base
+  
   #- 0000-cpd-namespaces.yaml
 patches:
   # - path: env-config-placeholder.yaml
   #- path: env-postsync-certificates.yaml
   - path: env-sync-cluster-setup.yaml
-  - path: env-sync-install-olm.yaml
-  - path: env-sync-install-platform.yaml
-  - path: env-sync-install-components.yaml
+  #- path: env-sync-install-olm.yaml
+  - path: env-install-platform.yaml
+  - path: env-install-wkc.yaml
+  - path: env-install-manta.yaml
   #- path: env-sync-install-zen-workaround.yaml
