@@ -64,7 +64,7 @@ Login to private container regisry
 
 Mirror the images to private registry
 
->`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --source_registry=127.0.0.1:12443 --target_registry {PRIVATE_REGISTRY_LOCATION} --arch=${IMAGE_ARCH} --case_download=false`
+>`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --source_registry=127.0.0.1:12443 --target_registry={PRIVATE_REGISTRY_LOCATION} --arch=${IMAGE_ARCH} --case_download=false`
 
 
 
