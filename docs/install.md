@@ -10,6 +10,9 @@ parameters:
 - VERSION : 4.8.5
 - COMPOMENTS : cpd_platform,wkc
 
+crrs COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent,dashboard,cognos_analytics,dv
+
+
 The above parameters serve as example
 *list of components will vary based on environment to be installed*
 
