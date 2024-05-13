@@ -48,7 +48,7 @@ spec:
                   --block_storage_class=${STG_CLASS_BLOCK} \
               && bin/get-license \
                   --release=${VERSION} \
-                  --license-type=SE \
+                  --license-type=EE \
               && echo "INFO: Creating OLM objects for a specialized installation." \
               && bin/apply-olm apply-olm \
                   --release=${VERSION} \

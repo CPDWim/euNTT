@@ -48,11 +48,11 @@ spec:
                   --block_storage_class=${STG_CLASS_BLOCK} \
               && bin/get-license \
                   --release=${VERSION} \
-                  --license-type=SE \
+                  --license-type=EE \
               && echo "INFO: Creating OLM objects for a specialized installation." \
               && bin/apply-olm apply-olm \
                   --release=${VERSION} \
-                  --components=datastage-ent \
+                  --components=datastage_ent_plus\
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
               || result=1
 
@@ -60,7 +60,7 @@ spec:
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=datastage-ent\
+                  --components=datastage_ent_plus\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
@@ -68,9 +68,9 @@ spec:
                   --license_acceptance=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D platform installation complete." \
+              && echo "INFO: CP4D datastage_ent_plus installation complete." \
               || {
-                  echo "ERROR: CP4D datastage-ent failed."
+                  echo "ERROR: CP4D datastage_ent_plus failed."
                   result=1
               }
 
