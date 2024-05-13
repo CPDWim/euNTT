@@ -35,46 +35,50 @@ spec:
                   exit 1
               }
 
-              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
-              echo "INFO: Installing wkc" \
-              && bin/authorize-instance-topology \
-                  --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
-                  --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
-              && bin/setup-instance-topology \
-                  --release=${VERSION:?} \
-                  --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
-                  --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
-                  --license_acceptance=true \
-                  --block_storage_class=${STG_CLASS_BLOCK} \
-              && bin/get-license \
-                  --release=${VERSION} \
-                  --license-type=EE \
-              && echo "INFO: Creating OLM objects for a specialized installation." \
-              && bin/apply-olm apply-olm \
-                  --release=${VERSION} \
-                  --components=wkc \
-                  --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
-              || result=1
+              export installed=$(oc get wkc wkc-cr -n crrs-inst | awk 'NR==2 {print $4}')
+              if [[ ${installed} =~ 'Completed' ]] 
+              then
+
+                # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
+               echo "INFO: Installing wkc" \
+                && bin/authorize-instance-topology \
+                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
+                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
+                && bin/setup-instance-topology \
+                   --release=${VERSION:?} \
+                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
+                    --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
+                   --license_acceptance=true \
+                   --block_storage_class=${STG_CLASS_BLOCK} \
+               && bin/get-license \
+                   --release=${VERSION} \
+                   --license-type=EE \
+               && echo "INFO: Creating OLM objects for a specialized installation." \
+               && bin/apply-olm apply-olm \
+                   --release=${VERSION} \
+                   --components=wkc \
+                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+               || result=1
 
 
-              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
-              echo "INFO: Installing components in a specialized installation." \
-              && bin/apply-cr \
-                  --components=wkc\
-                  --release=${VERSION} \
-                  --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
-                  --block_storage_class=${STG_CLASS_BLOCK:?} \
-                  --file_storage_class=${STG_CLASS_FILE:?} \
-                  --license_acceptance=true \
-              && bin/get-cr-status \
-                  --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D wkc complete." \
-              || {
-                  echo "ERROR: CP4D wkc failed."
-                  result=1
-              }
-
-              exit ${result}
+               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
+               echo "INFO: Installing components in a specialized installation." \
+               && bin/apply-cr \
+                   --components=wkc\
+                   --release=${VERSION} \
+                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
+                   --block_storage_class=${STG_CLASS_BLOCK:?} \
+                   --file_storage_class=${STG_CLASS_FILE:?} \
+                   --license_acceptance=true \
+                && bin/get-cr-status \
+                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
+               && echo "INFO: CP4D wkc complete." \
+               || {
+                   echo "ERROR: CP4D wkc failed."
+                   result=1
+               }
+              fi
+               exit ${result}
 
       restartPolicy: Never
       serviceAccountName: openshift-gitops-argocd-application-controller

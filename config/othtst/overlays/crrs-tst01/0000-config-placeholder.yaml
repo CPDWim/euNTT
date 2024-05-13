@@ -14,7 +14,7 @@ data:
   PROJECT_CERT_MANAGER: cert-manager
   PROJECT_LICENSE_SERVICE: ibm-licensing
   PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
-  COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent,dashboard,cognos_analytics,dv
+  COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent_plus,dashboard,cognos_analytics,dv
   STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
   STG_CLASS_FILE: ocs-storagecluster-cephfs
   VERSION: 4.8.5
