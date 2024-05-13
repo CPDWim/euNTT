@@ -36,7 +36,7 @@ spec:
               }
 
               export installed=$(oc get wkc wkc-cr -n crrs-inst | awk 'NR==2 {print $4}')
-              if [[ ${installed} =~ 'Completed' ]] 
+              if [[ ${installed} != 'Completed' ]] 
               then
 
                 # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
