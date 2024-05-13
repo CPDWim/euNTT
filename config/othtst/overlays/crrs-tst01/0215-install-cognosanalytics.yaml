@@ -70,7 +70,7 @@ spec:
                   --license_acceptance=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D platform installation complete." \
+              && echo "INFO: CP4D cognos analytics installation complete." \
               || {
                   echo "ERROR: CP4D cognos_analytics failed."
                   result=1
