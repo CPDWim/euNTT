@@ -35,7 +35,7 @@ spec:
                   exit 1
               }
 
-              export installed=$(oc get wkc wkc-cr -n crrs-inst | awk 'NR==2 {print $4}')
+              export installed=$(oc get wkc.wkc.cpd.ibm.com -n ${PROJECT_CPD_INST_OPERANDS} | awk 'NR==2 {print $4}')
               if [[ ${installed} != 'Completed' ]] 
               then
 
