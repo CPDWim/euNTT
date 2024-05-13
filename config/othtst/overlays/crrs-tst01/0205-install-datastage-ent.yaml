@@ -34,7 +34,9 @@ spec:
                   echo "WARNING: Unable to login to the cluster."
                   exit 1
               }
-
+              export installed=$(oc get datastages.ds.cpd.ibm.com -n ${PROJECT_CPD_INST_OPERANDS} | awk 'NR==2 {print $4}')
+              if [[ ${installed} != 'Completed' ]] 
+              then              
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
               echo "INFO: Installing datastage_ent" \
               && bin/authorize-instance-topology \
@@ -73,7 +75,7 @@ spec:
                   echo "ERROR: CP4D datastage_ent_plus failed."
                   result=1
               }
-
+              fi
               exit ${result}
 
       restartPolicy: Never
