@@ -35,7 +35,6 @@ spec:
                   --license_acceptance=true \
                   --cert_manager_ns=${PROJECT_CERT_MANAGER:?} \
                   --licensing_ns=${PROJECT_LICENSE_SERVICE:?} \
-              #    --preview=true \
               && echo "INFO: Cert Manager and Licensing service installed." \
               && bin/apply-scheduler \
                      --release=${VERSION} \
