@@ -1,0 +1,14 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "0095"
+  name: cpd-pidslimit-kubeletconfig
+spec:
+  kubeletConfig:
+    podPidsLimit: 16384
+  machineConfigPoolSelector:
+  matchExpressions:
+    - key: pools.operator.machineconfiguration.openshift.io/worker
+      operator: Exists

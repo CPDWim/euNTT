@@ -11,11 +11,10 @@ data:
   CR_VERSION: 0.0.0
   PROJECT_CPD_INST_OPERANDS: crrs-inst
   PROJECT_CPD_INST_OPERATORS: crrs-oper
-  PROJECT_CERT_MANAGER: ibm-cert-manager
+  PROJECT_CERT_MANAGER: cert-manager
   PROJECT_LICENSE_SERVICE: ibm-licensing
   PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
-  COMPONENTS: edb_cp4d,ws_pipelines,datastage_ent,dashboard,cognos_analytics,dv
+  COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent,dashboard,cognos_analytics,dv
   STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
   STG_CLASS_FILE: ocs-storagecluster-cephfs
   VERSION: 4.8.5
-

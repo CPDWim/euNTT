@@ -14,6 +14,10 @@ spec:
     spec:
       containers:
         - name: install-wkc
+          image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
+          envFrom:
+          - configMapRef:
+              name: crrs
           command:
             - /bin/bash
             - -c
@@ -32,7 +36,7 @@ spec:
               }
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
-              echo "INFO: Installing foundational services" \
+              echo "INFO: Installing wkc" \
               && bin/authorize-instance-topology \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
@@ -64,9 +68,9 @@ spec:
                   --license_acceptance=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D platform installation complete." \
+              && echo "INFO: CP4D wkc complete." \
               || {
-                  echo "ERROR: CP4D platform installation failed."
+                  echo "ERROR: CP4D wkc failed."
                   result=1
               }
 

@@ -10,6 +10,9 @@ parameters:
 - VERSION : 4.8.5
 - COMPOMENTS : cpd_platform,wkc
 
+crrs COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent,dashboard,cognos_analytics,dv
+
+
 The above parameters serve as example
 *list of components will vary based on environment to be installed*
 
@@ -64,7 +67,7 @@ Login to private container regisry
 
 Mirror the images to private registry
 
->`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --source_registry=127.0.0.1:12443 --target_registry {PRIVATE_REGISTRY_LOCATION} --arch=${IMAGE_ARCH} --case_download=false`
+>`cpd-cli manage mirror-images --components=${COMPONENTS} --release=${VERSION} --source_registry=127.0.0.1:12443 --target_registry={PRIVATE_REGISTRY_LOCATION} --arch=${IMAGE_ARCH} --case_download=false`
 
 
 
