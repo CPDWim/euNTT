@@ -6,18 +6,18 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-    argocd.argoproj.io/sync-wave: "205"
-  name: cp4d-install-datastage-ent
+    argocd.argoproj.io/sync-wave: "215"
+  name: cp4d-install-cognosanalytics
   namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
-        - name: install-datastage-ent
+        - name: install-cognosanalytics
           image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
           envFrom:
           - configMapRef:
-              name: crrs        
+              name: crrs
           command:
             - /bin/bash
             - -c
@@ -36,7 +36,7 @@ spec:
               }
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
-              echo "INFO: Installing datastage_ent" \
+              echo "INFO: Installing cognos_analytics" \
               && bin/authorize-instance-topology \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
@@ -52,7 +52,7 @@ spec:
               && echo "INFO: Creating OLM objects for a specialized installation." \
               && bin/apply-olm apply-olm \
                   --release=${VERSION} \
-                  --components=datastage-ent \
+                  --components=cognos_analytics \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
               || result=1
 
@@ -60,7 +60,7 @@ spec:
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=datastage-ent\
+                  --components=cognos_analytics\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
@@ -70,7 +70,7 @@ spec:
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
               && echo "INFO: CP4D platform installation complete." \
               || {
-                  echo "ERROR: CP4D datastage-ent failed."
+                  echo "ERROR: CP4D cognos_analytics failed."
                   result=1
               }
 

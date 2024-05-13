@@ -4,8 +4,12 @@ kind: Kustomization
 
 resources:
   - 0000-config-placeholder.yaml
-  - 0200-sync-install-wkc.yaml
-  - 0280-install-manta.yaml
+  - 0200-install-wkc.yaml
+  - 0201-install-edbcp4d.yaml
+  - 0202-install-wspipelines.yaml
+  - 0205-install-datastage-ent.yaml
+  - 0210-install-dashboard.yaml
+  - 0215-install-cognosanalytics.yaml
   - ../../base
   
   #- 0000-cpd-namespaces.yaml
@@ -15,6 +19,5 @@ patches:
   - path: env-sync-cluster-setup.yaml
   #- path: env-sync-install-olm.yaml
   - path: env-install-platform.yaml
-  - path: env-install-wkc.yaml
-  - path: env-install-manta.yaml
+
   #- path: env-sync-install-zen-workaround.yaml

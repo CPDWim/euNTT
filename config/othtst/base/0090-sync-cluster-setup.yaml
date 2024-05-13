@@ -21,19 +21,25 @@ spec:
               set -x
 
               export KUBECONFIG=/tmp/kubeconfig
-        
+                 export KUBECONFIG=/tmp/kubeconfig
+              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
+              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
+              || {
+                  echo "WARNING: Unable to login to the cluster."
+                  exit 1
+              }     
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
               bin/apply-cluster-components \
                   --release=${VERSION:?} \
                   --license_acceptance=true \
-              #    --cert_manager_ns=${PROJECT_CERT_MANAGER:?} \
+                  --cert_manager_ns=${PROJECT_CERT_MANAGER:?} \
                   --licensing_ns=${PROJECT_LICENSE_SERVICE:?} \
               #    --preview=true \
               && echo "INFO: Cert Manager and Licensing service installed." \
               && bin/apply-scheduler \
                      --release=${VERSION} \
-                     --license_acceptance=true \
+                     --license_acceptacd $HOMEnce=true \
                      --scheduler_ns=${PROJECT_SCHEDULING_SERVICE:?} \
               && echo "INFO: Scheduling service installed." \
               || result=1

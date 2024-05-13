@@ -6,14 +6,18 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
-    argocd.argoproj.io/sync-wave: "280"
-  name: cp4d-install-manta
+    argocd.argoproj.io/sync-wave: "202"
+  name: cp4d-install-wspipelines
   namespace: openshift-gitops
 spec:
   template:
     spec:
       containers:
-        - name: install-manta
+        - name: install-wspipelines
+          image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
+          envFrom:
+          - configMapRef:
+              name: crrs
           command:
             - /bin/bash
             - -c
@@ -32,7 +36,7 @@ spec:
               }
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
-              echo "INFO: Installing manta" \
+              echo "INFO: Installing ws pipelines" \
               && bin/authorize-instance-topology \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS:?} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
@@ -48,7 +52,7 @@ spec:
               && echo "INFO: Creating OLM objects for a specialized installation." \
               && bin/apply-olm apply-olm \
                   --release=${VERSION} \
-                  --components=mantaflow \
+                  --components=ws_pipelines \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
               || result=1
 
@@ -56,7 +60,7 @@ spec:
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \
-                  --components=mantaflow\
+                  --components=ws_pipelines\
                   --release=${VERSION} \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS:?} \
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
@@ -64,9 +68,9 @@ spec:
                   --license_acceptance=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
-              && echo "INFO: CP4D platform installation complete." \
+              && echo "INFO: CP4D ws_pipelines installation complete." \
               || {
-                  echo "ERROR: CP4D manta failed."
+                  echo "ERROR: CP4D ws_pipelines installation failed."
                   result=1
               }
 
