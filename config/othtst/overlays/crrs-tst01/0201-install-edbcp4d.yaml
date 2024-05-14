@@ -35,7 +35,7 @@ spec:
                   exit 1
               }
 
-              export installed=$(oc get CPDEdbService cpd-edb-service -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpaath='{.status.edbStatus}')
+              export installed=$(oc get CPDEdbService cpd-edb-service -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.status.edbStatus}')
               if [[ ${installed} != 'Completed' ]] 
               then              
 
