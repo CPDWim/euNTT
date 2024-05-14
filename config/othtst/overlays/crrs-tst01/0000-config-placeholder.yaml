@@ -4,8 +4,8 @@ metadata:
   name: crrs
   namespace: openshift-gitops
   annotations:
-    rgocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: "-1"
+    rgocd.argoproj.io/hook: PreSync
+    #argocd.argoproj.io/sync-wave: "-1"
 data:
   OLM_VERSION: 4.8.5
   CR_VERSION: 0.0.0
