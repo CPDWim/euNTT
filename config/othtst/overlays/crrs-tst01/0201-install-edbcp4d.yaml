@@ -60,7 +60,6 @@ spec:
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
               || result=1
 
-
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak
               echo "INFO: Installing components in a specialized installation." \
               && bin/apply-cr \

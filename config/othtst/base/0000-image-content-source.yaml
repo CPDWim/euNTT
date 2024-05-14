@@ -1,29 +1,40 @@
-apiVersion: operator.openshift.io/v1alpha1
-kind: ImageContentSourcePolicy
+---
+# https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-setting-up-installation-environment-variables
+apiVersion: batch/v1
+kind: Job
 metadata:
   annotations:
-      argocd.argoproj.io/hook: PreSync
-  name: cloud-pak-mirror
+    argocd.argoproj.io/hook: PreSync
+
+  name: pre-setup-content-source-policy
+  namespace: openshift-gitops
 spec:
-  repositoryDigestMirrors:
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cp'
-      source: cp.icr.io/cp
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cp/cpd'
-      source: cp.icr.io/cp/cpd
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cpopen'
-      source: icr.io/cpopen
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/db2u'
-      source: icr.io/db2u
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cpopen/cpfs'
-      source: icr.io/cpopen/cpfs
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/opencloudio'
-      source: quay.io/opencloudio
-    - mirrors:
-        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/ibmcom'
-      source: docker.io/ibmcom
+  template:
+    spec:
+      containers:
+        - name: configure-cluster
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -eo pipefail
+              set -x
+
+              export KUBECONFIG=/tmp/kubeconfig
+                 export KUBECONFIG=/tmp/kubeconfig
+              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
+              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
+              || {
+                  echo "WARNING: Unable to login to the cluster."
+                  exit 1
+              }     
+
+              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
+              bin/apply-icsp --registry=${PRIVATE_REGISTRY_LOCATION}
+              exit ${result}
+      restartPolicy: Never
+      serviceAccountName: openshift-gitops-argocd-application-controller
+  backoffLimit: 1
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
