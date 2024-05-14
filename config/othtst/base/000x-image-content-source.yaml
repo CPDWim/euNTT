@@ -1,0 +1,44 @@
+---
+# https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-setting-up-installation-environment-variables
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+
+  name: pre-setup-content-source-policy
+  namespace: openshift-gitops
+spec:
+  template:
+    spec:
+      containers:
+        - name: pre-setup-content-source-policy          
+          image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
+          envFrom:
+          - configMapRef:
+              name: crrs
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -eo pipefail
+              set -x
+
+              export KUBECONFIG=/tmp/kubeconfig
+                 export KUBECONFIG=/tmp/kubeconfig
+              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
+              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
+              || {
+                  echo "WARNING: Unable to login to the cluster."
+                  exit 1
+              }     
+
+              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
+              bin/apply-icsp --registry=${PRIVATE_REGISTRY_LOCATION}
+              exit ${result}
+      restartPolicy: Never
+      serviceAccountName: openshift-gitops-argocd-application-controller
+  backoffLimit: 1
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
