@@ -34,7 +34,7 @@ spec:
                   echo "WARNING: Unable to login to the cluster."
                   exit 1
               }
-              export installed=$(oc get dashboardservices.dashboard.cpd.ibm.com  -n ${PROJECT_CPD_INST_OPERANDS} | awk 'NR==2 {print $4}')
+              export installed=$(oc get DashboardService dashboardservice-cr -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.status.dashboardStatus}')
               if [[ ${installed} != 'Completed' ]] 
               then
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services

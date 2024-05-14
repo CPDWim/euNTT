@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
 - 0000-argocd-role-binding-admin.yaml
+- 0000-image-content-source.yaml
 - 0090-sync-cluster-setup.yaml
 - 0095-cpd-pidslimit.yaml
 #- 0100-sync-install-olm.yaml

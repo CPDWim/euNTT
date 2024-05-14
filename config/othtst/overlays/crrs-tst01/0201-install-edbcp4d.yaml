@@ -35,9 +35,9 @@ spec:
                   exit 1
               }
 
-              #export installed=$(oc get cpdedbservices.edb.cpd.ibm.com -n ${PROJECT_CPD_INST_OPERANDS} | awk 'NR==2 {print $4}')
-              #if [[ ${installed} != 'Completed' ]] 
-              #then              
+              export installed=$(oc get CPDEdbService cpd-edb-service -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpaath='{.status.edbStatus}')
+              if [[ ${installed} != 'Completed' ]] 
+              then              
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-installing-cloud-pak-foundational-services
               echo "INFO: Installing edb_cp4d" \
