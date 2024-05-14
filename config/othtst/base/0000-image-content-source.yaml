@@ -12,7 +12,11 @@ spec:
   template:
     spec:
       containers:
-        - name: configure-cluster
+        - name: pre-setup-content-source-policy          
+          image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
+          envFrom:
+          - configMapRef:
+              name: crrs
           command:
             - /bin/bash
             - -c
