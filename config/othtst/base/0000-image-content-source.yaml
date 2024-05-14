@@ -1,44 +1,26 @@
----
-# https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-setting-up-installation-environment-variables
-apiVersion: batch/v1
-kind: Job
+apiVersion: config.openshift.io/v1
+kind: ImageDigestMirrorSet
 metadata:
   annotations:
     argocd.argoproj.io/hook: PreSync
-
-  name: pre-setup-content-source-policy
-  namespace: openshift-gitops
+  name: cloud-pak-for-data-mirror
 spec:
-  template:
-    spec:
-      containers:
-        - name: pre-setup-content-source-policy          
-          image: "icr.io/cpopen/cpd/olm-utils-v2:latest"
-          envFrom:
-          - configMapRef:
-              name: crrs
-          command:
-            - /bin/bash
-            - -c
-            - |
-              set -eo pipefail
-              set -x
-
-              export KUBECONFIG=/tmp/kubeconfig
-                 export KUBECONFIG=/tmp/kubeconfig
-              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
-              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
-              || {
-                  echo "WARNING: Unable to login to the cluster."
-                  exit 1
-              }     
-
-              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
-              bin/apply-icsp --registry=${PRIVATE_REGISTRY_LOCATION}
-              exit ${result}
-      restartPolicy: Never
-      serviceAccountName: openshift-gitops-argocd-application-controller
-  backoffLimit: 1
-  syncPolicy:
-    syncOptions:
-    - ApplyOutOfSyncOnly=true
+  imageDigestMirrors:
+    - mirrors:
+        - define-location/cp
+      source: cp.icr.io/cp
+    - mirrors:
+        - define-location/cp/cpd
+      source: cp.icr.io/cp/cpd
+    - mirrors:
+        - define-location/cpopen
+      source: icr.io/cpopen
+    - mirrors:
+        - define-location/db2u
+      source: icr.io/db2u
+    - mirrors:
+        - define-location/cpopen/cpfs
+      source: icr.io/cpopen/cpfs
+    - mirrors:
+        - define-location/cpopen
+      source: cp.icr.io/cpopen
