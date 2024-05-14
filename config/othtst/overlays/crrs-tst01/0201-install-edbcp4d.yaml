@@ -77,7 +77,7 @@ spec:
                   echo "ERROR: CP4D edb_cp4d installation failed."
                   result=1
               }
-              #fi
+              fi
               exit ${result}
 
       restartPolicy: Never
