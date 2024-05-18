@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  DB2U_RUN_WITH_LIMITED_PRIVS: "false"
+kind: ConfigMap
+metadata:
+  name: db2u-product-cm
+  namespace: crrs-oper
