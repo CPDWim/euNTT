@@ -1,0 +1,15 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nss-managed-role-from-crrs-oper
+  namespace: crrs-oper
+  labels:
+    managed-by: nss
+subjects:
+- kind: ServiceAccount
+  name: ibm-namespace-scope-operator
+  namespace: crrs-oper
+roleRef:
+  kind: Role
+  name: nss-managed-role-from-crrs-oper
+  apiGroup: rbac.authorization.k8s.io

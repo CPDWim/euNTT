@@ -1,0 +1,28 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  
+  name: cloud-pak-mirror
+spec:
+  repositoryDigestMirrors:
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cp'
+      source: cp.icr.io/cp
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cp/cpd'
+      source: cp.icr.io/cp/cpd
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cpopen'
+      source: icr.io/cpopen
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/db2u'
+      source: icr.io/db2u
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/cpopen/cpfs'
+      source: icr.io/cpopen/cpfs
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/opencloudio'
+      source: quay.io/opencloudio
+    - mirrors:
+        - 'artifactory-artifactory.apps.ocp-cluster.cloudpak.local:443/ibmcom'
+      source: docker.io/ibmcom
