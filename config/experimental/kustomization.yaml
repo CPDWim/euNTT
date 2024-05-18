@@ -11,6 +11,6 @@ resources:
   - db2-privelages.yaml
   - ./cpd-platform/olm-utils-cm.yaml
   - ./cpd-platform/olm-utils-cm-oper.yaml
-  - ./cpd-platform/ibmcpd-cr.yaml
+  #- ./cpd-platform/ibmcpd-cr.yaml
   #- 0000-cpd-namespaces.yaml
 
