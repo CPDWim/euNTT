@@ -8,5 +8,6 @@ resources:
   - ./authorize-instance-topology/nns-managed-role-binding-oper.yaml
   - ./authorize-instance-topology/nns-managed-role-inst.yaml
   - ./authorize-instance-topology/nss-managed-role-oper.yaml
+  - db2-privelages.yaml
   #- 0000-cpd-namespaces.yaml
 
