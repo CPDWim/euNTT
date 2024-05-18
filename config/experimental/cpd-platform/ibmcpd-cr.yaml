@@ -10,4 +10,3 @@ spec:
   fileStorageClass: ocs-storagecluster-cephfs
   blockStorageClass: ocs-storagecluster-ceph-rbd
   version: 4.8.5
-serviceAccountName: sa-wim  
