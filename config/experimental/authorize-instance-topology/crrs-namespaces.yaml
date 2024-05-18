@@ -2,8 +2,12 @@ apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
   name: crrs-oper
+spec:
+  serviceAccountName: sa-wim
 ---
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
   name: crrs-inst
+spec:
+  serviceAccountNmae: sa-wim
