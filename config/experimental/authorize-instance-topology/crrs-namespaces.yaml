@@ -3,6 +3,7 @@ kind: Project
 metadata:
   name: crrs-oper
 ---
+apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
   name: crrs-inst
