@@ -9,5 +9,7 @@ resources:
   - ./authorize-instance-topology/nns-managed-role-inst.yaml
   - ./authorize-instance-topology/nss-managed-role-oper.yaml
   - db2-privelages.yaml
+  - ./cpd-platform/olm-utils-cm.yaml
+  - ./cpd-platform/ibmcpd-cr.yaml
   #- 0000-cpd-namespaces.yaml
 
