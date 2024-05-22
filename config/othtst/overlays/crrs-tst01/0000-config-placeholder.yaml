@@ -7,7 +7,7 @@ metadata:
     rgocd.argoproj.io/hook: PreSync
     #argocd.argoproj.io/sync-wave: "-1"
 data:
-  OLM_VERSION: 4.8.5
+  OLM_VERSION: 4.8.1
   CR_VERSION: 0.0.0
   PROJECT_CPD_INST_OPERANDS: crrs-inst
   PROJECT_CPD_INST_OPERATORS: crrs-oper
@@ -18,4 +18,4 @@ data:
   PRIVATE_REGISTRY_LOCATION: define-location-here
   STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
   STG_CLASS_FILE: ocs-storagecluster-cephfs
-  VERSION: 4.8.5
+  VERSION: 4.8.1
