@@ -8,9 +8,6 @@ metadata:
     app: databand
     component: tracking
     baseComponent: databand-webserver
-    chart: databand-1.0.59-4
-    release: databand
-    heritage: Helm
 spec:
   replicas: 2
   minReadySeconds: 10
