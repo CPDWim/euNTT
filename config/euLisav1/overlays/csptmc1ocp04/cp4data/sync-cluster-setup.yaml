@@ -1,0 +1,89 @@
+---
+# https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=information-setting-up-installation-environment-variables
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "0090"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  name: pre-sync-cp4d-cluster-setup
+  namespace: cp4d-gitops ## To be verified
+spec:
+  template:
+    spec:
+      containers:
+        - name: configure-cluster
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.x"
+          envFrom:
+          - configMapRef:
+              name: crrs-tst-cp4d-cm
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -eo pipefail
+              set -x
+              export KUBECONFIG=/tmp/kubeconfig
+              api_url=$(oc get Infrastructure cluster -o jsonpath='{.status.apiServerURL}')
+              oc login "${api_url}" --token="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" --insecure-skip-tls-verify \
+              || {
+                  echo "WARNING: Unable to login to the cluster."
+                  exit 1
+              }     
+
+              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=cluster-installing-shared-components
+              bin/apply-cluster-components \
+                  --release=${VERSION:?} \
+                  --license_acceptance=true \
+                  --cert_manager_ns=${PROJECT_CERT_MANAGER:?} \
+                  --licensing_ns=${PROJECT_LICENSE_SERVICE:?} \
+              && echo "INFO: Cert Manager and Licensing service installed." \
+              || result=0
+
+              bin/apply-scheduler \
+                     --release=${VERSION} \
+                     --license_acceptacd $HOMEnce=true \
+                     --scheduler_ns=${PROJECT_SCHEDULING_SERVICE:?} \
+              && echo "INFO: Scheduling service installed." \
+              || result=0
+
+              if [[ ${COMPONENTS:?} =~ cognos_analytics ]] \
+                  || [[ ${COMPONENTS} =~ db2 ]] \
+                  || [[ ${COMPONENTS} =~ bigsql ]] \
+                  || [[ ${COMPONENTS} =~ watson_discovery ]] \
+                  || [[ ${COMPONENTS} =~ wkc ]] \
+                  || [[ ${COMPONENTS} =~ ws ]] \
+                  || [[ ${COMPONENTS} =~ wml_accelerator ]]; then
+                  echo "INFO: Must update process IDs limit settings depending on the target env."
+              else
+                  echo "INFO: None of the components to be installed require process IDs limit changes"
+                  exit 0
+              fi
+
+              # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=settings-changing-process-ids-limit
+              #oc apply -f - << EOF
+              #apiVersion: machineconfiguration.openshift.io/v1
+              #kind: KubeletConfig
+              #metadata:
+              #  name: cpd-pidslimit-kubeletconfig
+              #spec:
+              #  kubeletConfig:
+              #    podPidsLimit: 16384
+              #  machineConfigPoolSelector:
+              #    matchExpressions:
+              #    - key: pools.operator.machineconfiguration.openshift.io/worker
+              #      operator: Exists
+              #EOF
+
+              # Not attempting to set the IBM entitlement key because it is
+              # already a prerequisite for this repository.
+              # bin/add-icr-cred-to-global-pull-secret ${IBM_ENTITLEMENT_KEY} || result=1
+
+              exit ${result}
+      restartPolicy: Never
+      serviceAccountName: cp4d-gitops-jobs ## To be verified
+  backoffLimit: 1
+  syncPolicy:
+    syncOptions:
+    - ApplyOutOfSyncOnly=true

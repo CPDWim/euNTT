@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../cp4data/base
+  - image-content-source.yaml
+  - argocd-role-binding-admin.yaml
+  - config-placeholder.yaml
+  - cp4d-gitops-jobs.yaml
+  - sync-cluster-setup.yaml
+

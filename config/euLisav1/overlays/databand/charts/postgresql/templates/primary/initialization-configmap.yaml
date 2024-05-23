@@ -1,0 +1,17 @@
+---
+# Source: databand/charts/postgresql/templates/primary/initialization-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: databand-postgresql-init-scripts
+  namespace: "databand-system"
+  labels:
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-11.6.2
+    app.kubernetes.io/instance: databand
+    app.kubernetes.io/managed-by: Helm
+data:
+  init.sql: |
+    ALTER USER databand WITH SUPERUSER;
+  init_stats.sql: |
+    CREATE EXTENSION pg_stat_statements;

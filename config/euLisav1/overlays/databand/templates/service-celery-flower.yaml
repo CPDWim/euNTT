@@ -1,0 +1,21 @@
+---
+# Source: databand/templates/service-celery-flower.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: databand-celery-flower
+  labels:
+    app: databand
+    component: celery-flower
+    release: databand
+spec:
+  type: ClusterIP
+  selector:
+    app: databand
+    component: celery-flower
+    release: databand
+  ports:
+    - name: web-flower
+      port: 5555
+      protocol: TCP
+      targetPort: 5555

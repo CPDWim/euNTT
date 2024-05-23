@@ -1,0 +1,75 @@
+---
+# Source: databand/templates/deployment-ml-trainer.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: databand-ml-trainer
+  labels:
+    app: databand
+    component: ml-trainer
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+spec:
+  replicas: 1
+  minReadySeconds: 
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: databand
+      component: ml-trainer
+      release: databand
+  template:
+    metadata:
+      annotations:
+        checksum/config-env: 3109c2a9a50dcf23eb23cd5b7154adb3449d16cbcda947dbcbe23ae8556ea817
+      labels:
+        app: databand
+        component: ml-trainer
+        release: databand
+    spec:
+      imagePullSecrets:
+        - name: regcred.gitlab.databand
+      restartPolicy: Always
+      serviceAccountName: databand
+      initContainers:
+      - name: wait-web
+        image: busybox:1.28.4
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'for i in $(seq 1 200); do nc -z -w3 databand-web 8090 && exit 0 || sleep 3; done; exit 1']
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: 100Mi
+          requests:
+            cpu: "0.01"
+            memory: 20Mi
+      containers:
+        - name: databand-ml-trainer
+          image: image-registry.openshift-image-registry.svc:5000/databand/dbnd-ml-trainer:python-v1.0.59.4
+          imagePullPolicy: IfNotPresent
+          envFrom:
+          - configMapRef:
+              name: "databand-env"
+          env:          
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          volumeMounts:
+            - name: app-dist
+              mountPath: /app/dist
+          args:
+            - "bash"
+            - "-c"
+            - echo 'wait for DB to pass validation...' && dbnd-web db --wait validate --wait-until-pass --timeout-until-pass 3600 && echo "executing  dbnd-ml-trainer..." && dbnd-ml-trainer
+      volumes:
+        - name: app-dist
+          emptyDir: {}

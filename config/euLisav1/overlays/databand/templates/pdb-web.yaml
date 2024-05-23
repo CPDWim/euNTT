@@ -1,0 +1,19 @@
+---
+# Source: databand/templates/pdb-web.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: databand-web
+  namespace: databand-system
+  labels:
+    app: databand
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+spec:
+  selector:
+    matchLabels:
+      app: databand
+      component: web
+      release: databand
+  minAvailable: 1

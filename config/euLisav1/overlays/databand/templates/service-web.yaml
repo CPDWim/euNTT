@@ -1,0 +1,24 @@
+---
+# Source: databand/templates/service-web.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: databand-web
+  labels:
+    app: databand
+    component: web
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+  annotations:
+spec:
+  type: ClusterIP
+  selector:
+    app: databand
+    component: web
+    release: databand
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8090
+      targetPort: 8090

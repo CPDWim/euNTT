@@ -1,0 +1,24 @@
+---
+# Source: databand/templates/service-celery-worker.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: databand-celery-worker
+  labels:
+    app: databand
+    component: celery-worker
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+  annotations:
+spec:
+  type: 
+  selector:
+    app: databand
+    component: celery-worker
+    release: databand
+  ports:
+    - name: celery-worker
+      protocol: TCP
+      port: 8095
+      targetPort: 8095

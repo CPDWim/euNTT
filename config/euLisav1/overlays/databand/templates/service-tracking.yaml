@@ -1,0 +1,24 @@
+---
+# Source: databand/templates/service-tracking.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: databand-tracking
+  labels:
+    app: databand
+    component: tracking
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+  annotations:
+spec:
+  type: ClusterIP
+  selector:
+    app: databand
+    component: tracking
+    release: databand
+  ports:
+    - name: tracking
+      protocol: TCP
+      port: 8091
+      targetPort: 8091

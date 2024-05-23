@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crrs-tst-cp4d-cm
+  namespace: cp4d-gitops ## To verify the correct namespace
+  #annotations:
+  #  argocd.argoproj.io/hook: PreSync
+    #argocd.argoproj.io/sync-wave: "-1"
+data:
+  OLM_VERSION: 4.8.5
+  #CR_VERSION: 0.0.0
+  PROJECT_CPD_INST_OPERANDS: crrs-tst-cp4d-inst
+  PROJECT_CPD_INST_OPERATORS: crrs-tst-cp4d-oper
+  PROJECT_CERT_MANAGER: cert-manager
+  PROJECT_LICENSE_SERVICE: ibm-licensing
+  PROJECT_SCHEDULING_SERVICE: ibm-cpd-scheduler
+  COMPONENTS: cpd_platform,wkc,edb_cp4d,ws_pipelines,datastage_ent_plus,dashboard,cognos_analytics,dv
+  PRIVATE_REGISTRY_LOCATION: cssatst1reg99.devtest.eulisa.local:8443
+  STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
+  STG_CLASS_FILE: ocs-storagecluster-cephfs
+  VERSION: 4.8.5

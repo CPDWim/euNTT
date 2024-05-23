@@ -1,0 +1,64 @@
+---
+# Source: databand/templates/job-dbnd-web-migration.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: databand-dbnd-web-migration-1
+  labels:
+    app: databand
+    release: databand
+    component: databand
+    baseComponent: dbnd-web-migration
+    chart: databand-1.0.59-4
+    heritage: Helm
+spec:
+  backoffLimit: 2  # means retry once if the migrations fail
+  template:
+    metadata:
+      name: databand-dbnd-web-migration
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: regcred.gitlab.databand
+
+      initContainers:
+      - name: wait-postgres
+        image: busybox:1.28.4
+        command: ['sh', '-c', 'for i in $(seq 1 200); do nc -z -w3 databand-postgresql 5432 && exit 0 || sleep 3; done; exit 1']
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: 100Mi
+          requests:
+            cpu: "0.01"
+            memory: 20Mi
+
+      containers:
+        - name: dbnd-web-migration
+          image: image-registry.openshift-image-registry.svc:5000/databand/dbnd-webserver:python-v1.0.59.4
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: "databand-env"
+          env:          
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: "0.1"
+              memory: 1200Mi
+          volumeMounts:
+            - name: dbnd-prom
+              mountPath: /dbnd/prom
+          args:
+            - "bash"
+            - "-c"
+            - >
+              set -e;
+              echo "executing db init";
+              dbnd-web db init --migration-timeout 3600;
+              dbnd-web celery stop-obsolete-workers;
+      volumes:
+        - name: dbnd-prom
+          emptyDir: {}

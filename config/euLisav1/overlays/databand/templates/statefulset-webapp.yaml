@@ -1,0 +1,88 @@
+---
+# Source: databand/templates/statefulset-webapp.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: databand-webapp
+  labels:
+    app: databand
+    component: webapp
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+spec:
+  podManagementPolicy: Parallel
+  replicas: 2
+  updateStrategy:
+    # Smooth rolling update of the webapp service
+    type: RollingUpdate
+  serviceName: databand-webapp
+  selector:
+    matchLabels:
+      app: databand
+      component: webapp
+      release: databand
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: databand
+        component: webapp
+        release: databand
+    spec:
+      imagePullSecrets:
+        - name: regcred.gitlab.databand
+      restartPolicy: Always
+      containers:
+        - name: databand-webapp
+          image: image-registry.openshift-image-registry.svc:5000/databand/dbnd-webapp:nginx-v1.0.59.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: webapp
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 128Mi
+          
+          volumeMounts:
+            - name: webapp-builds
+              mountPath: /usr/share/nginx/html/
+            - name: var-cache-nginx
+              mountPath: /var/cache/nginx
+            - name: var-run-nginx
+              mountPath: /var/run
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "[ -f /run/nginx.pid ] && ps -A | grep nginx"
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+
+      volumes:
+        - name: var-cache-nginx
+          emptyDir: {}
+        - name: var-run-nginx
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: webapp-builds
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "4Gi"

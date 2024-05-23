@@ -1,0 +1,19 @@
+---
+# Source: databand/templates/pdb-tracking.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: databand-tracking
+  namespace: databand-system
+  labels:
+    app: databand
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+spec:
+  selector:
+    matchLabels:
+      app: databand
+      component: tracking
+      release: databand
+  minAvailable: 1

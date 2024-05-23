@@ -1,0 +1,29 @@
+apiVersion: config.openshift.io/v1
+kind: ImageTagMirrorSet  ## OLD: ImageDigestMirrorSet
+metadata:
+  #annotations:
+  #  argocd.argoproj.io/hook: PreSync
+  name: cloud-pak-for-data-mirror
+spec:
+  imageTagMirrors: ## OLD: imageDigestMirrors
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cp
+    source: cp.icr.io/cp
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cp/cpd
+    source: cp.icr.io/cp/cpd
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cpopen
+    source: icr.io/cpopen
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cpopen/cpd
+    source: icr.io/cpopen/cpd
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/db2u
+    source: icr.io/db2u
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cpopen/cpfs
+    source: icr.io/cpopen/cpfs
+  - mirrors:
+    - cssatst1reg99.devtest.eulisa.local:8443/cpopen
+    source: cp.icr.io/cpopen

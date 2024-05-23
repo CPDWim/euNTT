@@ -1,0 +1,111 @@
+---
+# Source: databand/templates/configmap-env.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "databand-env"
+  labels:
+    app: databand
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+data:
+
+  ## Force UTC timezone
+  TZ: Etc/UTC
+
+  ## Postgres DB configuration
+  POSTGRES_HOST: "databand-postgresql"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "databand"
+
+  DBND__CORE__DATABAND_URL: http://databand-web.databand-system:8090
+  
+  DBND__CORE__DBND_USER: "databand"
+  DBND__CORE__DBND_PASSWORD: "databand"
+  
+
+  
+  DBND__WEBSERVER__SQL_ALCHEMY_CONN: postgresql+psycopg2://databand:databand@databand-postgresql:5432/databand
+  AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://databand:databand@databand-postgresql:5432/databand
+  
+
+  DBND__WEBSERVER__CELERY_BROKER_URL: redis://:secret@databand-redis-master:6379/0
+  DBND__WEBSERVER__RESULT_BACKEND: redis://:secret@databand-redis-master:6379/0
+
+  DBND__WEBSERVER__TRACKING_LOG_BUCKET: ""
+
+  DO_WAIT_INITDB: "false"
+  ## Custom DATABAND and AIRFLOW settings
+
+  FERNET_KEY: "ZnLQ1PqmEMGu/2V2XhpwbQCOSV1r9oTJIg05S2g99cM="
+  DBND__WEBSERVER__FERNET_KEY: "ZnLQ1PqmEMGu/2V2XhpwbQCOSV1r9oTJIg05S2g99cM="
+  AIRFLOW__CORE__BASE_LOG_FOLDER: "/app/.dbnd/logs"
+  AIRFLOW__WEBSERVER__BASE_URL: "http://localhost:8082/"
+
+
+  AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "False"
+  AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
+
+  DBND__WEBSERVER__WORKER_CLASS: "sync"
+  DBND__WEBSERVER__WORKERS: "1"
+  DBND__WEBSERVER__THREADS: "10"
+  DBND__DISABLE_AIRFLOW_SUBDAG_TRACKING: "false"
+
+  DBND__WEBSERVER__AMPLITUDE_API_KEY: ""
+  DBND__WEBSERVER__DATABAND_EXTERNAL_URL: http://localhost:8080
+  
+
+  DBND__WEBSERVER__SERVE_STATICS_ENABLED: "true"
+  DBND__WEBSERVER__WEBAPP_URL: http://databand-webapp.databand-system:80
+
+  # Internal swagger UI
+  DBND__WEBSERVER__ENABLE_INTERNAL_SWAGGER_UI: "false"
+  # Lineage with execution data
+  DBND__WEBSERVER__ENABLE_LINEAGE_WITH_EXECUTION_DATA: "false"
+  # Seeding API
+  DBND__WEBSERVER__ENABLE_INTERNAL_PSEUDO_DATA_API: "false"
+  # Alerts
+  DBND__ALERT__DBND_URL: http://databand-web.databand-system:8090
+  DBND__ALERT__COLLECT_HOURS_BACK: "3"
+  DBND__ALERT__SMTP_LOCAL_MACHINE_ENABLED: "false"
+  DBND__FEATURES_FLAGS__DELAY_DBT_DATASETS_REPORT: "true"
+  DBND__FEATURES_FLAGS__UI_AUTO_RUN_DURATION_ML_ALERT: "true"
+  DBND__FEATURES_FLAGS__UI_BIG_QUERY_INTEGRATION: "true"
+  DBND__FEATURES_FLAGS__UI_DATA_SOURCES_INTEGRATION: "true"
+  DBND__FEATURES_FLAGS__UI_DATA_TARGETS: "true"
+  DBND__FEATURES_FLAGS__UI_DBT_INTEGRATION: "false"
+  DBND__FEATURES_FLAGS__UI_INTEGRATION_FLOW_ENABLED: "true"
+  INSTALL_MYSQL: "false"
+
+  # use singlequotes, expected values looks like: '["local","dev"]'
+  DBND__WEBSERVER__ENV_TO_FILTER: '[]'
+
+  DBND__WEBSERVER__ENV: ""
+  DBND__WEBSERVER__LOG_FORMAT: "text"
+  DBND__WEBSERVER__SECRET_KEY: "r5vWCktkdr64zcLVeKj4E0GEKH5advsO6MFUPrfAG7g"
+  # use singlequotes, expected values looks like: '["github","okta"]'
+  DBND__AB_AUTH__OAUTH2_PROVIDERS: '[]'
+  
+  # github
+  DBND__AB_AUTH__GITHUB_KEY: ""
+  DBND__AB_AUTH__GITHUB_SECRET: ""
+  # gitlab
+  DBND__AB_AUTH__GITLAB_KEY: ""
+  DBND__AB_AUTH__GITLAB_SECRET: ""
+  # okta
+  DBND__AB_AUTH__OKTA_KEY: ""
+  DBND__AB_AUTH__OKTA_SECRET: ""
+  DBND__AB_AUTH__OKTA_BASE_URL: ""
+  # SAML
+
+  DBND__AB_AUTH__ENABLE_TRACKING_AUTH: "false"
+  DBND__DEFAULT_USER__DISABLED: "false"
+  DBND__DEFAULT_USER__ROLE: "Support"
+  DBND__DEFAULT_USER__EMAIL: "support@databand.ai"
+  DBND__DEFAULT_USER__FIRSTNAME: "Databand"
+  DBND__DEFAULT_USER__LASTNAME: "Support"
+  
+  DBND__DEFAULT_USER__USERNAME: "databand"
+  DBND__DEFAULT_USER__PASSWORD: "databand"
+  DBND__WEBSERVER__DATASET_WITH_PARTITION: "false"

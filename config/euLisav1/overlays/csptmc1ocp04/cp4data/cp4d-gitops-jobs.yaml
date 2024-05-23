@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  #annotations:
+  #  argocd.argoproj.io/hook: PreSync
+  name: cp4d-gitops-jobs
+  namespace: cp4d-gitops

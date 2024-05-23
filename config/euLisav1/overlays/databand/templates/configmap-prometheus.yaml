@@ -1,0 +1,9 @@
+---
+# Source: databand/templates/configmap-prometheus.yaml
+# 1. Based on
+# https://github.com/helm/charts/blob/40000fc5a644ebed41b88d3d93efc11236775d2d/stable/prometheus/templates/configmaps/server.yaml
+# 2. Replaced: `.Values` -> `.Values.prometheus`
+# 3. Change name to `name: "databand-dbnd-prometheus"`
+# 4. Created $ctx to be used by subchart template
+# 5. We need it to define static alertamager discovery, when RBAC is disabled (rbac.create.false)
+# 6. Define scrape target "databand-metrics" with optional RBAC support

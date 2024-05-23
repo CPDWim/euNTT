@@ -1,0 +1,24 @@
+---
+# Source: databand/templates/service-celery-worker-notification.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: databand-celery-w-notif
+  labels:
+    app: databand
+    component: celery-w-notif
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+  annotations:
+spec:
+  type: 
+  selector:
+    app: databand
+    component: celery-w-notif
+    release: databand
+  ports:
+    - name: celery-w-notif
+      protocol: TCP
+      port: 8095
+      targetPort: 8095

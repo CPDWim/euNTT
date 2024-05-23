@@ -1,0 +1,81 @@
+---
+# Source: databand/templates/deployment-celery-flower.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: databand-celery-flower
+  labels:
+    app: databand
+    component: celery-flower
+    chart: databand-1.0.59-4
+    release: databand
+    heritage: Helm
+spec:
+  replicas: 1
+  minReadySeconds: 
+  strategy:
+    # Smooth rolling update of the celery-flower service
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: databand
+      component: celery-flower
+      release: databand
+  template:
+    metadata:
+      annotations:
+        checksum/config-env: 3109c2a9a50dcf23eb23cd5b7154adb3449d16cbcda947dbcbe23ae8556ea817
+      labels:
+        app: databand
+        component: celery-flower
+        release: databand
+    spec:
+      imagePullSecrets:
+        - name: regcred.gitlab.databand
+      restartPolicy: Always
+      containers:
+        - name: databand-celery-flower
+          image: "image-registry.openshift-image-registry.svc:5000/databand/flower:0.9.7"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web-flower
+              containerPort: 5555
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: web-flower
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: web-flower
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          env:          
+            - name: DBND__WEBSERVER__CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: DBND__WEBSERVER__CELERY_BROKER_URL
+                  name: databand-env
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 25m
+              memory: 30Mi
+          volumeMounts:
+          command:
+            - /bin/sh
+            - -c
+            - 'celery -b $(eval echo $DBND__WEBSERVER__CELERY_BROKER_URL) list bindings
+            && celery -b $(eval echo $DBND__WEBSERVER__CELERY_BROKER_URL) flower'
+      volumes:
