@@ -7,7 +7,7 @@ metadata:
     rgocd.argoproj.io/hook: PreSync
     #argocd.argoproj.io/sync-wave: "-1"
 data:
-  OLM_VERSION: 4.8.1
+  OLM_VERSION: 4.8.2
   CR_VERSION: 0.0.0
   PROJECT_CPD_INST_OPERANDS: crrs-inst
   PROJECT_CPD_INST_OPERATORS: crrs-oper
@@ -20,4 +20,4 @@ data:
   #STG_CLASS_BLOCK: ocs-storagecluster-ceph-rbd
   #STG_CLASS_FILE: ocs-storagecluster-cephfs
   STG_CLASS_FILE: managed-nfs-storage
-  VERSION: 4.8.1
+  VERSION: 4.8.2
