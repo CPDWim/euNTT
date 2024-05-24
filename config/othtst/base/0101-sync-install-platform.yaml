@@ -31,6 +31,10 @@ spec:
                   exit 1
               }
               export installed=$(oc get Ibmcpd ibmcpd-cr -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.status.controlPlaneStatus}')
+              export current_version=$(oc get Ibmcpd ibmcpd-cr -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.spec.version}')
+              if [[ ${current_version} != ${VERION}]] 
+              then installed='upgrade'
+              fi
               if [[ ${installed} != 'Completed' ]] 
               then
 
@@ -53,6 +57,7 @@ spec:
                   --release=${VERSION} \
                   --components=cpd_platform \
                   --cpd_operator_ns=${PROJECT_CPD_INST_OPERATORS} \
+                  --upgrade=true \
               || result=1
 
               # https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=data-specifying-privileges-that-db2u-runs
@@ -75,6 +80,7 @@ spec:
                   --block_storage_class=${STG_CLASS_BLOCK:?} \
                   --file_storage_class=${STG_CLASS_FILE:?} \
                   --license_acceptance=true \
+                  --upgrade=true \
               && bin/get-cr-status \
                   --cpd_instance_ns=${PROJECT_CPD_INST_OPERANDS} \
               && echo "INFO: CP4D platform installation complete." \
