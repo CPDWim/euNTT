@@ -33,7 +33,8 @@ spec:
               export installed=$(oc get Ibmcpd ibmcpd-cr -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.status.controlPlaneStatus}')
               export current_version=$(oc get Ibmcpd ibmcpd-cr -n ${PROJECT_CPD_INST_OPERANDS} -o jsonpath='{.spec.version}')
               if [[ ${current_version} != ${VERION} ]] 
-              then installed='upgrade'
+              then 
+                export installed='upgrade'
               fi
               if [[ ${installed} != 'Completed' ]] 
               then
