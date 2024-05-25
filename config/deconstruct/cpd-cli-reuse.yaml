@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openshift-gitops
+  name: 'cpd-reuse'
+  annotations: {}
+spec:
+  selector:
+    matchLabels:
+      app: cpd-cli-reuse
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cpd-cli-reuse
+    spec:
+      volumes:
+        - name: offline
+          persistentVolumeClaim:
+            claimName: deconstruct-pvc
+      containers:
+        - name: cpd-cli-debug
+          image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
+          envFrom:
+          - configMapRef:
+              name: crrs
+          volumeMounts: 
+            - name: offline
+              mountPath: /tmp/work/offline
+      serviceAccountName: openshift-gitops-argocd-application-controller
+    strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    serviceAccountName: openshift-gitops-argocd-application-controller
+  paused: false
