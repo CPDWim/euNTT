@@ -27,6 +27,7 @@ spec:
           volumeMounts: 
             - name: offline
               mountPath: /tmp/work/offline
+              readOnly: false
       serviceAccountName: openshift-gitops-argocd-application-controller
     strategy:
     type: RollingUpdate

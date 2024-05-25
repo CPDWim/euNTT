@@ -27,6 +27,10 @@ spec:
           volumeMounts: 
             - name: offline
               mountPath: /tmp/work/offline
+              readOnly: false
+      securityContext:
+        supplementalGroups: [100003]
+        privileged: false        
     strategy:
     type: RollingUpdate
     rollingUpdate:
