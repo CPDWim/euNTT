@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: name
+        app: cpd-cli-debug
     spec:
       containers:
         - name: cpd-cli-debug
