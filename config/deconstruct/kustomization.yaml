@@ -6,5 +6,6 @@ resources:
   - deconstruct-pvc.yaml
   - ./0000-config-placeholder.yaml
   - ./cpd-cli-debug.yaml
+  - ./cpd-cli-reuse.yaml
 
 
