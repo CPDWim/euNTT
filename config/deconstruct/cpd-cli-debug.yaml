@@ -14,12 +14,19 @@ spec:
       labels:
         app: cpd-cli-debug
     spec:
+      volumes:
+        - name: offline
+          persistentVolumeClaim:
+            claimName: deconstruct-pvc
       containers:
         - name: cpd-cli-debug
           image: "icr.io/cpopen/cpd/olm-utils-v2:4.8.5"
           envFrom:
           - configMapRef:
               name: crrs
+          volumeMounts: 
+            - name: offline
+              mountPath: /tmp/work/offline
     strategy:
     type: RollingUpdate
     rollingUpdate:
