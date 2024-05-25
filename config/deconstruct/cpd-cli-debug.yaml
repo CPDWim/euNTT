@@ -32,4 +32,5 @@ spec:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
+    serviceAccountName: openshift-gitops-argocd-application-controller
   paused: false
