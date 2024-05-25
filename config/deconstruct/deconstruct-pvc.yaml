@@ -2,6 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: deconstruct-pvc
+  namespace: openshift-gitops
 spec:
   accessModes:
   - ReadWriteOnce
